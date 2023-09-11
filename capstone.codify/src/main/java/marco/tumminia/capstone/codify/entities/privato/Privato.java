@@ -21,14 +21,13 @@ public class Privato extends Utente {
 	private String nome;
 	private String cognome;
 	private String codiceFiscale;
-	private String cartaDiCredito;
+
 	
-	public Privato(String username, String email, String password, String indirizzo, String numeroTelefono, Ruolo ruolo, String nome, String cognome, String codiceFiscale, String cartaDiCredito) {
-		super(username, email, password, indirizzo, numeroTelefono, ruolo);
+	public Privato(String username, String email, String password, String indirizzo, String numeroTelefono, String cartaDiCredito, Ruolo ruolo, String nome, String cognome, String codiceFiscale) {
+		super(username, email, password, indirizzo, numeroTelefono, cartaDiCredito, ruolo);
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
-		this.cartaDiCredito = cartaDiCredito;
 		
 	}
 
