@@ -22,8 +22,8 @@ public class Azienda extends Utente {
 	private String partitaIva;
 	private String sitoWeb;
 	
-	public Azienda(String username, String email, String password, String indirizzo, String numeroTelefono, Ruolo ruolo, String nomeAzienda, String tipoAzienda, String partitaIva, String sitoWeb) {
-		super(username, email, password, indirizzo, numeroTelefono, ruolo);
+	public Azienda(String username, String email, String password, String indirizzo, String numeroTelefono, String cartaDiCredito, Ruolo ruolo, String nomeAzienda, String tipoAzienda, String partitaIva, String sitoWeb) {
+		super(username, email, password, indirizzo, numeroTelefono, cartaDiCredito, ruolo);
 		
 		this.nomeAzienda = nomeAzienda;
 		this.tipoAzienda = tipoAzienda;
