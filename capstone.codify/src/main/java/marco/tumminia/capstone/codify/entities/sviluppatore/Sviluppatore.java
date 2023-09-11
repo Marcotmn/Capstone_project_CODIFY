@@ -26,20 +26,29 @@ public class Sviluppatore extends Utente {
 //  @OneToMany(mappedBy = "sviluppatore") // relazione con entità progetto
     //private List<Progetto> progettiRealizzati;
 	
+	
+	private String nome;
+	private String cognome;
     private String titolo; // "Sviluppatore Full Stack", "Designer UI/UX"
     private String bio;
     private String linkPortfolio;
     private String competenze; 
+    private String partitaIva;
 
   
 
     public Sviluppatore(String username, String email, String password, String indirizzo, String numeroTelefono, String cartaDiCredito, Ruolo ruolo, 
-                        String titolo, String bio, String linkPortfolio, String competenze) {
+                        String nome, String cognome, String titolo, String bio, String linkPortfolio, String competenze, String partitaIva) {
         super(username, email, password, indirizzo, numeroTelefono, cartaDiCredito, ruolo);
+       
+        this.nome = nome;
+        this.cognome = cognome;
         this.titolo = titolo;
         this.bio = bio;
         this.linkPortfolio = linkPortfolio;
         this.competenze = competenze;
+        this.partitaIva = partitaIva;
+        
     }
 
 }
