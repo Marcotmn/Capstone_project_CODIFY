@@ -78,7 +78,12 @@ public class Utente implements UserDetails {
 	//	// TODO Auto-generated method stub
 	//	return password;
 	//}
+	
+	public UUID getIdUtente() {
+	    return idUtente;
+	}
 
+	
 	@Override
 	public String getUsername() {
 		return this.username;

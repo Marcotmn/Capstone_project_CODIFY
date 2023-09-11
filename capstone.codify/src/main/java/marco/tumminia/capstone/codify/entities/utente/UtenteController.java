@@ -34,7 +34,7 @@ public class UtenteController {
 
     @PostMapping("/register")
     public ResponseEntity<Utente> registerUser(@RequestBody NuovoUtentePayload payload) {
-        Utente createdUser = utenteService.createUser(payload);
+        Utente createdUser = utenteService.save(payload);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 

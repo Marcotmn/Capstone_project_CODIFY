@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import marco.tumminia.capstone.codify.entities.azienda.Azienda;
 import marco.tumminia.capstone.codify.entities.privato.Privato;
 import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
+import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @Service
 public class UtenteService {
@@ -17,7 +19,7 @@ public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
 
-    public Utente createUser(NuovoUtentePayload payload) {
+    public Utente save(NuovoUtentePayload payload) {
         Utente utente;
 
         switch(payload.getRuolo()) {
@@ -71,6 +73,11 @@ public class UtenteService {
 
         return utenteRepository.save(utente);
     }
+    
+    public Utente findByEmail(String email) {
+		return utenteRepository.findByEmail(email)
+				.orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato"));
+	}
     
     public List<Utente> getUsers() {
         return utenteRepository.findAll();
