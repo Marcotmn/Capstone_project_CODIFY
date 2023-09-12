@@ -13,7 +13,7 @@ import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
 public class PropostaSviluppatoreService {
 
     @Autowired
-    private PropostaRepository propostaRepository;
+    private PropostaSviluppatoreRepository propostaRepository;
 
     public PropostaSviluppatore saveProposta(PropostaSviluppatore proposta) {
         return propostaRepository.save(proposta);

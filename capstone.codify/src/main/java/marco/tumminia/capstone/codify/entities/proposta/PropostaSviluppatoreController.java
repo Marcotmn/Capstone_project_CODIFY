@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
+import marco.tumminia.capstone.codify.entities.sviluppatore.SviluppatoreService;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @RestController
@@ -21,6 +22,9 @@ public class PropostaSviluppatoreController {
 
     @Autowired
     private PropostaSviluppatoreService propostaService;
+    
+    @Autowired
+    private SviluppatoreService sviluppatoreService;
 
     @PostMapping
     public PropostaSviluppatore createProposta(@RequestBody PropostaSviluppatore proposta) {
@@ -35,9 +39,13 @@ public class PropostaSviluppatoreController {
 
     @GetMapping("/sviluppatore/{idSviluppatore}")
     public List<PropostaSviluppatore> getProposteBySviluppatore(@PathVariable UUID idSviluppatore) {
-        Sviluppatore sviluppatore = sviluppatoreService.findById(idSviluppatore).orElseThrow(() -> new NotFoundException("Sviluppatore non trovato"));
+        Sviluppatore sviluppatore = sviluppatoreService.findById(idSviluppatore);
+        if(sviluppatore == null) {
+            throw new NotFoundException("Sviluppatore non trovato");
+        }
         return propostaService.findBySviluppatore(sviluppatore);
     }
+
 
 
     @DeleteMapping("/{id}")

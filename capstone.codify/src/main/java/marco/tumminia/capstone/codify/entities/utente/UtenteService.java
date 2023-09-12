@@ -1,10 +1,14 @@
 package marco.tumminia.capstone.codify.entities.utente;
 
 import java.util.List;
+
+import marco.tumminia.capstone.codify.exceptions.IncorrectPasswordException;
+
 import java.util.UUID;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -18,6 +22,9 @@ public class UtenteService {
 
     @Autowired
     private UtenteRepository utenteRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Utente save(NuovoUtentePayload payload) {
         Utente utente;
@@ -72,6 +79,25 @@ public class UtenteService {
         }
 
         return utenteRepository.save(utente);
+    }
+    
+    public void updatePassword(UUID idUtente, UpdatePasswordPayload payload) {
+        Optional<Utente> utenteOpt = utenteRepository.findById(idUtente);
+        
+        if (!utenteOpt.isPresent()) {
+            throw new NotFoundException("Utente non trovato con ID: " + idUtente);
+        }
+
+        Utente utente = utenteOpt.get();
+
+        if (!passwordEncoder.matches(payload.getCurrentPassword(), utente.getPassword())) {
+            throw new IncorrectPasswordException("La password corrente non è corretta");
+        }
+
+        String encodedNewPassword = passwordEncoder.encode(payload.getNewPassword());
+        utente.setPassword(encodedNewPassword);
+
+        utenteRepository.save(utente);
     }
     
     public Utente findByEmail(String email) {
