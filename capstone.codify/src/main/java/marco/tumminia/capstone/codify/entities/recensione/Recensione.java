@@ -48,7 +48,4 @@ public class Recensione {
 		this.testoRecensione = testoRecensione;
 		this.dataRecensione = dataRecensione;
 	}
-	
-	
-
 }

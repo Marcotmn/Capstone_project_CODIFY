@@ -50,6 +50,11 @@ public class Sviluppatore extends Utente {
         this.partitaIva = partitaIva;
         
     }
+    
+    @Override
+    public String getDisplayName() {
+        return this.nome;
+    }
 
 }
 

@@ -30,5 +30,11 @@ public class Azienda extends Utente {
 		this.partitaIva = partitaIva;
 		this.sitoWeb = sitoWeb;
 	}
+	
+	@Override
+	public String getDisplayName() {
+	    return this.nomeAzienda;
+	}
+
 
 }

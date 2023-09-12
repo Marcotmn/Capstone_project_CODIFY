@@ -83,6 +83,10 @@ public class Utente implements UserDetails {
 	    return idUtente;
 	}
 
+
+    public String getDisplayName() {
+        return ""; 
+    }
 	
 	@Override
 	public String getUsername() {

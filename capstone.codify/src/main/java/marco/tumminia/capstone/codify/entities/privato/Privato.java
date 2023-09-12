@@ -30,5 +30,10 @@ public class Privato extends Utente {
 		this.codiceFiscale = codiceFiscale;
 		
 	}
+	
+	@Override
+	public String getDisplayName() {
+	    return this.nome;
+	}
 
 }
