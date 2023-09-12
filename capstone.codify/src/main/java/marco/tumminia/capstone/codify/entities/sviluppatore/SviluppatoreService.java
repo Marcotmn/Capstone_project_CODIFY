@@ -46,7 +46,7 @@ public class SviluppatoreService {
         existingSviluppatore.setPartitaIva(updatedSviluppatoreData.getPartitaIva());
         existingSviluppatore.setNumeroTelefono(updatedSviluppatoreData.getNumeroTelefono());
         existingSviluppatore.setCartaDiCredito(updatedSviluppatoreData.getCartaDiCredito());
-
+        existingSviluppatore.setEmail(updatedSviluppatoreData.getEmail());
         return sviluppatoreRepository.save(existingSviluppatore);
     }
     
