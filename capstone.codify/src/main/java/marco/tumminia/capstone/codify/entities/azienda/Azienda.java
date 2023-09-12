@@ -1,10 +1,14 @@
 package marco.tumminia.capstone.codify.entities.azienda;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.utente.Ruolo;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 
@@ -16,6 +20,9 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @Table(name = "aziende")
 
 public class Azienda extends Utente {
+	
+	@OneToMany(mappedBy = "azienda")  
+	private List<Annuncio> annunci;
 	
 	private String nomeAzienda;
 	private String tipoAzienda;
