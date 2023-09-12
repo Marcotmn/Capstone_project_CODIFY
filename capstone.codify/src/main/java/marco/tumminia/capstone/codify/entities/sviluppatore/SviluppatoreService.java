@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
+import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @Service
@@ -18,6 +19,15 @@ public class SviluppatoreService {
     public Sviluppatore findById(UUID id) {
         return sviluppatoreRepository.findById(id).orElseThrow(() -> new NotFoundException("Sviluppatore non trovato con ID: " + id));
     }
+    
+    public List<Sviluppatore> findAll() {
+        return sviluppatoreRepository.findAll();
+    }
+
+    public List<Sviluppatore> findByNome(String nome) {
+        return sviluppatoreRepository.findByNome(nome);
+    }
+
 
     public List<PropostaSviluppatore> getPropostePerSviluppatore(UUID idSviluppatore) {
         Sviluppatore sviluppatore = findById(idSviluppatore);
@@ -38,6 +48,16 @@ public class SviluppatoreService {
         existingSviluppatore.setCartaDiCredito(updatedSviluppatoreData.getCartaDiCredito());
 
         return sviluppatoreRepository.save(existingSviluppatore);
+    }
+    
+    public List<Sviluppatore> findTopSviluppatori() {
+        return sviluppatoreRepository.findAllOrderByAverageRatingDesc();
+    }
+    
+    public List<Recensione> getRecensioniPerSviluppatore(UUID idSviluppatore) {
+        Sviluppatore sviluppatore = findById(idSviluppatore);
+        // Supponendo che tu abbia un getter chiamato getRecensioni nella tua classe Sviluppatore che restituisce tutte le recensioni per uno sviluppatore.
+        return sviluppatore.getRecensioni();
     }
 
     public void deleteSviluppatore(UUID id) {

@@ -3,12 +3,14 @@ package marco.tumminia.capstone.codify.entities.sviluppatore;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
+import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 import marco.tumminia.capstone.codify.entities.utente.Ruolo;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 
@@ -22,6 +24,9 @@ public class Sviluppatore extends Utente {
 
 	@OneToMany(mappedBy = "sviluppatore")
 	private List<PropostaSviluppatore> proposte;
+	
+	@OneToMany(mappedBy = "sviluppatore", fetch = FetchType.LAZY)
+	private List<Recensione> recensioni;
 	
 //  @OneToMany(mappedBy = "sviluppatore") // relazione con entità progetto
     //private List<Progetto> progettiRealizzati;

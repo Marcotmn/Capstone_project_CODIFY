@@ -6,6 +6,7 @@ import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -13,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 @Entity
@@ -33,6 +35,10 @@ public class Recensione {
 	@ManyToOne
 	@JoinColumn(name = "id_utente_recensito")
 	private Utente utenteRecensito;
+	
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @JoinColumn(name = "sviluppatore_id")
+	 private Sviluppatore sviluppatore;
 	
 	@Enumerated(EnumType.STRING)
 	private PunteggioRecensione punteggio;
