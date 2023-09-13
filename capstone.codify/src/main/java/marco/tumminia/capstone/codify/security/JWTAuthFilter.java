@@ -58,7 +58,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 	    
 	    System.out.println(path);
 	    
-	    return pathMatcher.match("/auth/**", path) || pathMatcher.match("/sviluppatore/register", path);
+	    return pathMatcher.match("/auth/**", path) || pathMatcher.match("/sviluppatore/register", path) || pathMatcher.match("/azienda/register", path)|| pathMatcher.match("/privato/register", path);
 	}
 
 

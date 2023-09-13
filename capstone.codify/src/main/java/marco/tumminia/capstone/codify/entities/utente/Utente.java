@@ -36,7 +36,7 @@ import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 @DiscriminatorColumn(name = "tipo_utente")
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties ({ "password" })
+@JsonIgnoreProperties ({ "password", "cartaDiCredito" })
 
 public class Utente implements UserDetails {
 	

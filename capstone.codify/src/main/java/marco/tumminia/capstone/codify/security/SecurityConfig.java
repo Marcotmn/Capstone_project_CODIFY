@@ -32,6 +32,8 @@ public class SecurityConfig {
 		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sviluppatore/register").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/azienda/register").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/privato/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();

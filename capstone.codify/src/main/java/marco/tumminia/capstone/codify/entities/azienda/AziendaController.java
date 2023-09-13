@@ -18,7 +18,7 @@ import org.springframework.http.HttpStatus;
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 
 @RestController
-@RequestMapping("/aziende")
+@RequestMapping("/azienda")
 public class AziendaController {
 
     @Autowired
