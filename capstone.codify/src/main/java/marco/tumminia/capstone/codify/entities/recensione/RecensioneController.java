@@ -35,31 +35,8 @@ public class RecensioneController {
    //     return recensioneService.findAll();
    // }
     
-    @GetMapping("/recensore/{utenteId}")
-    public List<Recensione> getRecensioniByUtenteRecensore(@PathVariable UUID utenteId) {
-        Utente utenteRecensore = utenteService.findById(utenteId);
-        if(utenteRecensore == null) {
-            throw new NotFoundException("Utente non trovato");
-        }
-        return recensioneService.findByUtenteRecensore(utenteRecensore);
-    }
 
 
-    @GetMapping("/recensito/{utenteId}")
-    public List<Recensione> getRecensioniByUtenteRecensito(@PathVariable UUID utenteId) {
-        Utente utenteRecensito = utenteService.findById(utenteId);
-        if(utenteRecensito == null) {
-            throw new NotFoundException("Utente non trovato");
-        }
-        return recensioneService.findByUtenteRecensito(utenteRecensito);
-    }
-
-    @GetMapping("/recensito/{utenteId}")
-    public List<Recensione> getRecensioniByUtenteRecensito(
-            @PathVariable UUID utenteId,
-            @RequestParam(required = false) PunteggioRecensione punteggio) {
-        return recensioneService.findByUtenteRecensitoAndPunteggio(utenteId, punteggio);
-    }
 
 
     

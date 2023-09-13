@@ -2,6 +2,7 @@ package marco.tumminia.capstone.codify.entities.azienda;
 
 import java.util.List;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -14,6 +15,7 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 @SuppressWarnings("serial")
 @Entity
+@DiscriminatorValue("AZIENDA")
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)  

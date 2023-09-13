@@ -19,6 +19,15 @@ public class PrivatoService {
         return privatoRepository.findById(id).orElseThrow(() -> new NotFoundException("Privato non trovato con ID: " + id));
     }
     
+    public Privato findByUsername(String username) {
+        return privatoRepository.findByUsername(username);
+    }
+    
+    public Privato findByEmail(String email) {
+    	return privatoRepository.findByEmail(email);
+    }
+
+    
     public List<Privato> findByNome(String nome) {
         return privatoRepository.findByNome(nome);
     }
@@ -42,6 +51,10 @@ public class PrivatoService {
         
         return privatoRepository.save(existingPrivato);
     }
+    public Privato save(Privato privato) {
+        return privatoRepository.save(privato);
+    }
+    
 
     public void deletePrivato(UUID id) {
         if (!privatoRepository.existsById(id)) {

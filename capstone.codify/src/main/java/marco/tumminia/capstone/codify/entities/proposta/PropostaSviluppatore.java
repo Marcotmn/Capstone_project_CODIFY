@@ -26,7 +26,7 @@ public class PropostaSviluppatore {
 	
 	@Id
 	@GeneratedValue
-	private UUID idProposta;
+	private UUID id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_sviluppatore")

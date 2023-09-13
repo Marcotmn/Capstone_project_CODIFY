@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AziendaRepository extends JpaRepository<Azienda, UUID> {
     List<Azienda> findByNomeAzienda(String nomeAzienda);
+    Azienda findByEmail(String email);
 }

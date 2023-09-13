@@ -2,6 +2,7 @@ package marco.tumminia.capstone.codify.entities.privato;
 
 import java.util.List;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -15,6 +16,7 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 @SuppressWarnings("serial")
 @Entity
+@DiscriminatorValue("PRIVATO")
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)  

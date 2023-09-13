@@ -1,6 +1,7 @@
 package marco.tumminia.capstone.codify.entities.annuncio;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,7 @@ public interface AnnuncioRepository extends JpaRepository<Annuncio, UUID> {
     List<Annuncio> findByPrivato(Privato privato);
     List<Annuncio> findByAzienda(Azienda azienda);
     List<Annuncio> findByCategoria(CategoriaAnnuncio categoria);
+    Optional<Annuncio> findFirstByOrderByIdAsc();
+
 }
 

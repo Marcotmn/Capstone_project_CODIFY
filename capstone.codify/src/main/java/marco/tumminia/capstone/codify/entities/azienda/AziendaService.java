@@ -15,6 +15,15 @@ public class AziendaService {
 
     @Autowired
     private AziendaRepository aziendaRepository;
+    
+    public Azienda save(Azienda azienda) {
+        return aziendaRepository.save(azienda);
+    }
+    
+    public Azienda findByEmail(String email) {
+    	return aziendaRepository.findByEmail(email);
+    }
+
 
     public Azienda findById(UUID id) {
         return aziendaRepository.findById(id).orElseThrow(() -> new NotFoundException("Azienda non trovata con ID: " + id));
@@ -43,6 +52,7 @@ public class AziendaService {
         
         return aziendaRepository.save(existingAzienda);
     }
+    
 
     public void deleteAzienda(UUID id) {
         if (!aziendaRepository.existsById(id)) {

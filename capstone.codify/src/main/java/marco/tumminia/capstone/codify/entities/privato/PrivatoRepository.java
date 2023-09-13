@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PrivatoRepository extends JpaRepository<Privato, UUID> {
 	 List<Privato> findByNome(String nome);
+	 Privato findByUsername(String username);
+	 Privato findByEmail(String email);
 }

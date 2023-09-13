@@ -15,7 +15,7 @@ public interface FatturaRepository extends JpaRepository<Fattura, UUID> {
 	  
 	Page<Fattura> findByUtente_IdUtente(UUID idUtente, Pageable pageable);
     Page<Fattura> findByStatoFattura(StatoFattura statoFattura, Pageable pageable);
-    Page<Fattura> findByData(LocalDate dataFattura, Pageable pageable);
+    Page<Fattura> findByDataFattura(LocalDate dataFattura, Pageable pageable);
     Page<Fattura> findByAnno(int anno, Pageable pageable);
     Page<Fattura> findByImportoBetween(double minImporto, double maxImporto, Pageable pageable);
 	

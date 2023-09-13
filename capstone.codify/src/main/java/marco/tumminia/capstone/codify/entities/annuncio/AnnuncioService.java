@@ -23,8 +23,12 @@ public class AnnuncioService {
     @Autowired
     private AziendaService aziendaService; // Assumendo che tu abbia un servizio per Azienda
 
-    public Annuncio findById(UUID id) {
-        return annuncioRepository.findById(id).orElseThrow(() -> new NotFoundException("Annuncio non trovato con ID: " + id));
+    public Annuncio findById(UUID idAnnuncio) {
+        return annuncioRepository.findById(idAnnuncio).orElseThrow(() -> new NotFoundException("Annuncio non trovato con ID: " + idAnnuncio));
+    }
+    
+    public Annuncio save(Annuncio annuncio) {
+        return annuncioRepository.save(annuncio);
     }
 
     public List<Annuncio> findByTitolo(String titolo) {
@@ -44,5 +48,10 @@ public class AnnuncioService {
     public List<Annuncio> findByCategoria(CategoriaAnnuncio categoria) {
         return annuncioRepository.findByCategoria(categoria);
     }
+    
+    public Annuncio findFirst() {
+        return annuncioRepository.findFirstByOrderByIdAsc().orElseThrow(() -> new NotFoundException("Nessun annuncio trovato."));
+    }
+
 
 }

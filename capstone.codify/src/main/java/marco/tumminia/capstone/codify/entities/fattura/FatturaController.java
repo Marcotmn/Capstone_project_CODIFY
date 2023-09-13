@@ -64,9 +64,9 @@ public class FatturaController {
         return fs.findByStatoFattura(statoFattura, pageable);
     }
 
-    @GetMapping("/filter/data")
-    public Page<Fattura> getFattureByData(@RequestParam LocalDate dataFattura, @PageableDefault(size = 10) Pageable pageable) {
-        return fs.findByData(dataFattura, pageable);
+    @GetMapping("/filter/dataFattura")
+    public Page<Fattura> getFattureByDataFattura(@RequestParam LocalDate dataFattura, @PageableDefault(size = 10) Pageable pageable) {
+        return fs.findByDataFattura(dataFattura, pageable);
     }
 
     @GetMapping("/filter/anno")

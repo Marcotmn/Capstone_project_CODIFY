@@ -25,80 +25,14 @@ public class UtenteService {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
 
     public Utente save(NuovoUtentePayload payload) {
-        Utente utente;
-
-        switch(payload.getRuolo()) {
-            case SVILUPPATORE:
-                utente = new Sviluppatore(payload.getUsername(),
-                        payload.getEmail(),
-                        payload.getPassword(),
-                        payload.getIndirizzo(),
-                        payload.getNumeroTelefono(),
-                        payload.getCartaDiCredito(),
-                        payload.getRuolo(),
-                        payload.getNome(),
-                        payload.getCognome(),
-                        payload.getTitolo(),
-                        payload.getBio(),
-                        payload.getLinkPortfolio(),
-                        payload.getCompetenze(),
-                        payload.getPartitaIva());
-                break;
-
-            case PRIVATO:
-                utente = new Privato(payload.getUsername(),
-                        payload.getEmail(),
-                        payload.getPassword(),
-                        payload.getIndirizzo(),
-                        payload.getNumeroTelefono(),
-                        payload.getCartaDiCredito(),
-                        payload.getRuolo(),
-                        payload.getNome(),
-                        payload.getCognome(),
-                        payload.getCodiceFiscale());
-                break;
-
-            case AZIENDA:
-                utente = new Azienda(payload.getUsername(),
-                        payload.getEmail(),
-                        payload.getPassword(),
-                        payload.getIndirizzo(),
-                        payload.getNumeroTelefono(),
-                        payload.getCartaDiCredito(),
-                        payload.getRuolo(),
-                        payload.getNomeAzienda(),
-                        payload.getTipoAzienda(),
-                        payload.getPartitaIva(),
-                        payload.getSitoWeb());
-                break;
-
-            default:
-                throw new IllegalArgumentException("Ruolo non valido.");
-        }
+        Utente utente = new Utente();
 
         return utenteRepository.save(utente);
     }
-    
-    public void updatePassword(UUID idUtente, UpdatePasswordPayload payload) {
-        Optional<Utente> utenteOpt = utenteRepository.findById(idUtente);
-        
-        if (!utenteOpt.isPresent()) {
-            throw new NotFoundException("Utente non trovato con ID: " + idUtente);
-        }
 
-        Utente utente = utenteOpt.get();
-
-        if (!passwordEncoder.matches(payload.getCurrentPassword(), utente.getPassword())) {
-            throw new IncorrectPasswordException("La password corrente non è corretta");
-        }
-
-        String encodedNewPassword = passwordEncoder.encode(payload.getNewPassword());
-        utente.setPassword(encodedNewPassword);
-
-        utenteRepository.save(utente);
-    }
     
     public Utente findByEmail(String email) {
 		return utenteRepository.findByEmail(email)
@@ -109,17 +43,17 @@ public class UtenteService {
         return utenteRepository.findAll();
     }
 
-    public Utente findById(UUID idUtente) {
-        Optional<Utente> utente = utenteRepository.findById(idUtente);
+    public Utente findById(UUID id) {
+        Optional<Utente> utente = utenteRepository.findById(id);
         if (utente.isPresent()) {
             return utente.get();
         } else {
-            throw new RuntimeException("Utente non trovato con ID: " + idUtente); 
+            throw new RuntimeException("Utente non trovato con ID: " + id); 
         }
     }
 
-    public Utente findByIdAndUpdate(UUID idUtente, NuovoUtentePayload body) {
-        Optional<Utente> utenteOptional = utenteRepository.findById(idUtente);
+    public Utente findByIdAndUpdate(UUID id, NuovoUtentePayload body) {
+        Optional<Utente> utenteOptional = utenteRepository.findById(id);
         if (utenteOptional.isPresent()) {
             Utente utenteAggiornato = utenteOptional.get();
             
@@ -130,11 +64,11 @@ public class UtenteService {
         }
     }
 
-    public void findByIdAndDelete(UUID idUtente) {
-        if (utenteRepository.existsById(idUtente)) {
-            utenteRepository.deleteById(idUtente);
+    public void findByIdAndDelete(UUID id) {
+        if (utenteRepository.existsById(id)) {
+            utenteRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Utente non trovato con ID: " + idUtente);  // Puoi gestire l'errore come preferisci
+            throw new RuntimeException("Utente non trovato con ID: " + id);  // Puoi gestire l'errore come preferisci
         }
     }
 }

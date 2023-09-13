@@ -34,16 +34,6 @@ public class SviluppatoreController {
         return sviluppatoreService.findById(idSviluppatore);
     }
 
-    @GetMapping("/search")
-    public List<Sviluppatore> searchSviluppatoriByNome(@RequestParam String nome) {
-        return sviluppatoreService.findByNome(nome);
-    }
-    
-    @GetMapping("/top")
-    public List<Sviluppatore> getSviluppatoriByValutazione() {
-        return sviluppatoreService.findTopSviluppatori();
-    }
-    
     @GetMapping("/{idSviluppatore}/recensioni")
     public List<Recensione> getRecensioniPerSviluppatore(@PathVariable UUID idSviluppatore) {
         return sviluppatoreService.getRecensioniPerSviluppatore(idSviluppatore);

@@ -16,16 +16,4 @@ public class NuovoUtentePayload {
 	private String numeroTelefono;
 	private String cartaDiCredito;
 	private Ruolo ruolo;
-    private String nome;
-    private String cognome;
-    private String codiceFiscale;
-    private String nomeAzienda;
-    private String tipoAzienda;
-    private String partitaIva; 
-    private String sitoWeb; 
-    private String titolo; 
-    private String bio;
-    private String linkPortfolio;
-    private String competenze;
-
 }

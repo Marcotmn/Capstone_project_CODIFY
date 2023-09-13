@@ -33,21 +33,21 @@ public class Annuncio {
 	
 	@Id
 	@GeneratedValue
-	private UUID idAnnuncio;
+	private UUID id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_utente", nullable = false)
-	private Utente cliente;
+	private Utente utente;
 	
 	@OneToMany(mappedBy = "annuncio")
 	private List<PropostaSviluppatore> proposte;
 	
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "privato_id")
+    @JoinColumn(name = "id_privato")
     private Privato privato;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "azienda_id")
+    @JoinColumn(name = "id_azienda")
     private Azienda azienda;
 
 
@@ -65,8 +65,8 @@ public class Annuncio {
 	private LocalDate dataPubblicazione;
 	private LocalDate dataChiusura;
 	
-	public Annuncio (Utente cliente, String titolo, String descrizione, CategoriaAnnuncio categoria, StatoAnnuncio annuncio, Double budgetPrevisto, LocalDate dataPubblicazione, LocalDate dataChiusura) {
-		this.cliente = cliente;
+	public Annuncio (Utente utente, String titolo, String descrizione, CategoriaAnnuncio categoria, StatoAnnuncio annuncio, Double budgetPrevisto, LocalDate dataPubblicazione, LocalDate dataChiusura) {
+		this.utente = utente;
 		this.titolo = titolo;
 		this.descrizione = descrizione;
 		this.categoria = categoria;

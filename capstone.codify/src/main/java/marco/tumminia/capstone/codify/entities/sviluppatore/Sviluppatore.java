@@ -2,6 +2,7 @@ package marco.tumminia.capstone.codify.entities.sviluppatore;
 
 import java.util.List;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -16,6 +17,7 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 @SuppressWarnings("serial")
 @Entity
+@DiscriminatorValue("SVILUPPATORE")
 @Table(name = "sviluppatori")
 @Data
 @NoArgsConstructor

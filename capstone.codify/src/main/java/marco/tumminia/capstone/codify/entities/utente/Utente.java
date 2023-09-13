@@ -31,7 +31,7 @@ import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "utenti")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_utente")
 @Data
 @NoArgsConstructor
@@ -41,7 +41,7 @@ public class Utente implements UserDetails {
 	
 	@Id
 	@GeneratedValue
-	private UUID idUtente;
+	private UUID id;
 	private String username;
 	private String email;
 	private String password;
@@ -55,11 +55,7 @@ public class Utente implements UserDetails {
     @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Fattura> fatture = new ArrayList<>();
     
-    @OneToMany(mappedBy = "utenteRecensore")
-    private List<Recensione> recensioniLasciate = new ArrayList<>();
-
-    @OneToMany(mappedBy = "utenteRecensito")
-    private List<Recensione> recensioniRicevute = new ArrayList<>();
+  
 
 	
 	public Utente(String username, String email, String password, String indirizzo, String numeroTelefono, String cartaDiCredito, Ruolo ruolo) {
@@ -85,7 +81,7 @@ public class Utente implements UserDetails {
 	//}
 	
 	public UUID getIdUtente() {
-	    return idUtente;
+	    return id;
 	}
 
 

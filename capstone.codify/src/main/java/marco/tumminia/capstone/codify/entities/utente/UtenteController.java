@@ -37,8 +37,7 @@ public class UtenteController {
     @Autowired
     UtenteService utenteService;
     
-    @Autowired
-    UpdatePasswordPayload updatePassPay;
+  
 
 
     @PostMapping("/register")
@@ -57,24 +56,7 @@ public class UtenteController {
         return utenteService.findById(idUtente);
     }
     
-    @PutMapping("/{idUtente}/update-password")
-    public ResponseEntity<Void> updatePassword(@PathVariable UUID idUtente, @RequestBody UpdatePasswordPayload payload) {
-        try {
-            utenteService.updatePassword(idUtente, payload);
-            
-            // Se tutto va bene, restituisci uno stato HTTP 200 OK
-            return new ResponseEntity<>(HttpStatus.OK);
-            
-        } catch (IncorrectPasswordException e) {
-            // Supponiamo che ci possa essere un'eccezione se la password corrente non è corretta
-            // In tal caso, restituisci uno stato HTTP 400 BAD REQUEST o un altro codice di stato appropriato
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            
-        } catch (Exception e) {
-            // Gestisci altri errori potenziali
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+   
 
 
 

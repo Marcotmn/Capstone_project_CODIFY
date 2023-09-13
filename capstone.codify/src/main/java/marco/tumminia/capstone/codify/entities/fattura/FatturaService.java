@@ -15,7 +15,7 @@ public class FatturaService {
 	
 	@Autowired
 	FatturaRepository fatturaRepository;
-	
+
 	public Fattura saveFattura(Fattura fattura) {
         return fatturaRepository.save(fattura);
     }
@@ -40,8 +40,8 @@ public class FatturaService {
         return fatturaRepository.findByStatoFattura(statoFattura, pageable);
     }
 
-    public Page<Fattura> findByData(LocalDate dataFattura, Pageable pageable) {
-        return fatturaRepository.findByData(dataFattura, pageable);
+    public Page<Fattura> findByDataFattura(LocalDate dataFattura, Pageable pageable) {
+        return fatturaRepository.findByDataFattura(dataFattura, pageable);
     }
 
     public Page<Fattura> findByAnno(int anno, Pageable pageable) {

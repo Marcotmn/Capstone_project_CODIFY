@@ -26,18 +26,10 @@ public class Recensione {
 	
 	@Id
 	@GeneratedValue
-	private UUID idRecensione;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_utente_recensore")
-	private Utente utenteRecensore;
-
-	@ManyToOne
-	@JoinColumn(name = "id_utente_recensito")
-	private Utente utenteRecensito;
+	private UUID id;
 	
 	 @ManyToOne(fetch = FetchType.LAZY)
-	 @JoinColumn(name = "sviluppatore_id")
+	 @JoinColumn(name = "id_sviluppatore")
 	 private Sviluppatore sviluppatore;
 	
 	@Enumerated(EnumType.STRING)
@@ -47,9 +39,8 @@ public class Recensione {
 	
 	private LocalDate dataRecensione;
 	
-	public Recensione (Utente utenteRecensore, Utente utenteRecensito, PunteggioRecensione punteggio, String testoRecensione, LocalDate dataRecensione) {
-		this.utenteRecensore = utenteRecensore;
-		this.utenteRecensito = utenteRecensito;
+	public Recensione (PunteggioRecensione punteggio, String testoRecensione, LocalDate dataRecensione) {
+
 		this.punteggio = punteggio;
 		this.testoRecensione = testoRecensione;
 		this.dataRecensione = dataRecensione;

@@ -20,12 +20,12 @@ public class Fattura {
 	
 	@Id
 	@GeneratedValue
-	private UUID idFattura;
+	private UUID id;
 	
 	private int anno;
 	
 	@ManyToOne
-	@JoinColumn(name = "idUtente")
+	@JoinColumn(name = "id_utente")
 	private Utente utente;
 
 	private double numeroFattura;
