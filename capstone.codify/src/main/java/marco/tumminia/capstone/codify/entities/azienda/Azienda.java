@@ -23,9 +23,6 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 public class Azienda extends Utente {
 	
-	@OneToMany(mappedBy = "azienda")  
-	private List<Annuncio> annunci;
-	
 	private String nomeAzienda;
 	private String tipoAzienda;
 	private String partitaIva;

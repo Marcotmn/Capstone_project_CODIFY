@@ -24,6 +24,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.fattura.Fattura;
 import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
 import marco.tumminia.capstone.codify.entities.recensione.Recensione;
@@ -51,6 +52,9 @@ public class Utente implements UserDetails {
 	
 	@Enumerated(EnumType.STRING)
 	private Ruolo ruolo;
+	
+	 @OneToMany(mappedBy = "pubblicante", cascade = CascadeType.ALL)
+	    private List<Annuncio> annunci = new ArrayList<>();
 	
     @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Fattura> fatture = new ArrayList<>();

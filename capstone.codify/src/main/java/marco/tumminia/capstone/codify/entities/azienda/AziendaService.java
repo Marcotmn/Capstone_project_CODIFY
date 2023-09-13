@@ -1,6 +1,7 @@
 package marco.tumminia.capstone.codify.entities.azienda;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class AziendaService {
     
     public Azienda findByEmail(String email) {
     	return aziendaRepository.findByEmail(email);
+    }
+    
+    public Optional<Azienda> findFirstByOrderByIdAsc() {
+        return aziendaRepository.findFirstByOrderByIdAsc();
     }
 
 

@@ -16,23 +16,13 @@ public class AnnuncioController {
     private AnnuncioService annuncioService;
 
     @GetMapping("/{idAnnuncio}")
-    public Annuncio getAnnuncioById(@PathVariable UUID idAnnuncio) {
-        return annuncioService.findById(idAnnuncio);
+    public Annuncio getAnnuncioById(@PathVariable UUID id) {
+        return annuncioService.findById(id);
     }
 
     @GetMapping("/titolo/{titoloAnnuncio}")
     public List<Annuncio> getAnnunciByTitolo(@PathVariable String titoloAnnuncio) {
         return annuncioService.findByTitolo(titoloAnnuncio);
-    }
-
-    @GetMapping("/privato/{idPrivato}")
-    public List<Annuncio> getAnnunciByPrivato(@PathVariable UUID idPrivato) {
-        return annuncioService.findByPrivato(idPrivato);
-    }
-
-    @GetMapping("/azienda/{idAzienda}")
-    public List<Annuncio> getAnnunciByAzienda(@PathVariable UUID idAzienda) {
-        return annuncioService.findByAzienda(idAzienda);
     }
 
     @GetMapping("/categoria/{categoria}")

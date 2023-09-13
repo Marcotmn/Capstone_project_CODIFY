@@ -24,9 +24,6 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 public class Privato extends Utente {
 	
-	@OneToMany(mappedBy = "privato")  
-	private List<Annuncio> annunci;
-	
 	private String nome;
 	private String cognome;
 	private String codiceFiscale;

@@ -1,6 +1,7 @@
 package marco.tumminia.capstone.codify.entities.privato;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class PrivatoService {
 
     @Autowired
     private PrivatoRepository privatoRepository;
+    
+    public Optional<Privato> findFirstByOrderByIdAsc() {
+        return privatoRepository.findFirstByOrderByIdAsc();
+    }
 
     public Privato findById(UUID id) {
         return privatoRepository.findById(id).orElseThrow(() -> new NotFoundException("Privato non trovato con ID: " + id));
