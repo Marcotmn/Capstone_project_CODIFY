@@ -31,11 +31,14 @@ public class SecurityConfig {
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sviluppatore/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();
 	}
 
+	
+	//BEAN PER CRIPTARE LA PASSWORD
 	@Bean
 	PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder(11);

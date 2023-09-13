@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
@@ -17,7 +18,24 @@ public class AziendaService {
     @Autowired
     private AziendaRepository aziendaRepository;
     
-    public Azienda save(Azienda azienda) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    public Azienda save(AziendaPayload payload) {
+        Azienda azienda = new Azienda();
+
+        azienda.setUsername(payload.getUsername());
+        azienda.setEmail(payload.getEmail());
+        azienda.setPassword(passwordEncoder.encode(payload.getPassword()));
+        azienda.setIndirizzo(payload.getIndirizzo());
+        azienda.setNumeroTelefono(payload.getNumeroTelefono());
+        azienda.setCartaDiCredito(payload.getCartaDiCredito());
+        azienda.setRuolo(payload.getRuolo());
+        azienda.setNomeAzienda(payload.getNomeAzienda());
+        azienda.setTipoAzienda(payload.getTipoAzienda());
+        azienda.setPartitaIva(payload.getPartitaIva());
+        azienda.setSitoWeb(payload.getSitoWeb());
+
         return aziendaRepository.save(azienda);
     }
     

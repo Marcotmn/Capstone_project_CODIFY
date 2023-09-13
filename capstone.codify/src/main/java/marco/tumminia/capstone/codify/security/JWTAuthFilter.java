@@ -15,6 +15,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import marco.tumminia.capstone.codify.entities.sviluppatore.SviluppatoreService;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 import marco.tumminia.capstone.codify.entities.utente.UtenteService;
 import marco.tumminia.capstone.codify.exceptions.UnauthorizedException;
@@ -28,7 +29,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	UtenteService utenteService;
-
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -48,10 +49,17 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
 	}
 
+	
+	//QUI STIAMO DICENDO AL FILTRO DI NON OSTACOLARE QUESTI ENDPOINT
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) {
-		System.out.println(request.getServletPath());
-		return new AntPathMatcher().match("/auth/**", request.getServletPath());
+	    String path = request.getServletPath();
+	    AntPathMatcher pathMatcher = new AntPathMatcher();
+	    
+	    System.out.println(path);
+	    
+	    return pathMatcher.match("/auth/**", path) || pathMatcher.match("/sviluppatore/register", path);
 	}
+
 
 }

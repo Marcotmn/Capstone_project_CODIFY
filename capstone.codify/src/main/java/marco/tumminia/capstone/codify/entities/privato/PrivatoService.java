@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
@@ -15,6 +16,26 @@ public class PrivatoService {
 
     @Autowired
     private PrivatoRepository privatoRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    public Privato save(PrivatoPayload payload) {
+        Privato privato = new Privato();
+
+        privato.setUsername(payload.getUsername());
+        privato.setEmail(payload.getEmail());
+        privato.setPassword(passwordEncoder.encode(payload.getPassword()));
+        privato.setIndirizzo(payload.getIndirizzo());
+        privato.setNumeroTelefono(payload.getNumeroTelefono());
+        privato.setCartaDiCredito(payload.getCartaDiCredito());
+        privato.setRuolo(payload.getRuolo());
+        privato.setNome(payload.getNome());
+        privato.setCognome(payload.getCognome());
+        privato.setCodiceFiscale(payload.getCodiceFiscale());
+
+        return privatoRepository.save(privato);
+    }
     
     public Optional<Privato> findFirstByOrderByIdAsc() {
         return privatoRepository.findFirstByOrderByIdAsc();
@@ -56,9 +77,7 @@ public class PrivatoService {
         
         return privatoRepository.save(existingPrivato);
     }
-    public Privato save(Privato privato) {
-        return privatoRepository.save(privato);
-    }
+
     
 
     public void deletePrivato(UUID id) {

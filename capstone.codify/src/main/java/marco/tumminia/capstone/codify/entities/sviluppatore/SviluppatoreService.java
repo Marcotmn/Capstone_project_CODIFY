@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import marco.tumminia.capstone.codify.entities.privato.Privato;
@@ -16,6 +17,32 @@ public class SviluppatoreService {
 
     @Autowired
     private SviluppatoreRepository sviluppatoreRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    //LOGICA PER SALVARE GLI SVILUPPATORI
+    
+    public Sviluppatore save(SviluppatorePayload payload) {
+        Sviluppatore sviluppatore = new Sviluppatore();
+
+        sviluppatore.setUsername(payload.getUsername());
+        sviluppatore.setEmail(payload.getEmail());
+        sviluppatore.setPassword(passwordEncoder.encode(payload.getPassword())); //COSì UTILIZZO IL BCRYPT NEL MOMENTO DELLA REGISTRAZIONE TRAMITE POSTMAN
+        sviluppatore.setIndirizzo(payload.getIndirizzo());
+        sviluppatore.setNumeroTelefono(payload.getNumeroTelefono());
+        sviluppatore.setCartaDiCredito(payload.getCartaDiCredito());
+        sviluppatore.setRuolo(payload.getRuolo());
+        sviluppatore.setNome(payload.getNome());
+        sviluppatore.setCognome(payload.getCognome());
+        sviluppatore.setTitolo(payload.getTitolo());
+        sviluppatore.setBio(payload.getBio());
+        sviluppatore.setLinkPortfolio(payload.getLinkPortfolio());
+        sviluppatore.setCompetenze(payload.getCompetenze());
+        sviluppatore.setPartitaIva(payload.getPartitaIva());
+
+        return sviluppatoreRepository.save(sviluppatore);
+    }
 
     public Sviluppatore findById(UUID id) {
         return sviluppatoreRepository.findById(id).orElseThrow(() -> new NotFoundException("Sviluppatore non trovato con ID: " + id));
@@ -24,10 +51,7 @@ public class SviluppatoreService {
     public List<Sviluppatore> findAll() {
         return sviluppatoreRepository.findAll();
     }
-    
-    public Sviluppatore save(Sviluppatore sviluppatore) {
-        return sviluppatoreRepository.save(sviluppatore);
-    }
+   
 
     public Sviluppatore findByEmail(String email) {
     	return sviluppatoreRepository.findByEmail(email);

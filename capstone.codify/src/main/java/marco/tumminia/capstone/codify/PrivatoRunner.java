@@ -29,13 +29,8 @@ public class PrivatoRunner implements CommandLineRunner {
                 throw new EmailAlreadyExistsException(payload.getEmail());
             }
 
-            Privato nuovoPrivato = new Privato(
-                payload.getUsername(), payload.getEmail(), payload.getPassword(), 
-                payload.getIndirizzo(), payload.getNumeroTelefono(), payload.getCartaDiCredito(), payload.getRuolo(), 
-                payload.getNome(), payload.getCognome(), payload.getCodiceFiscale()
-            );
-
-            privatoService.save(nuovoPrivato);
+            // Utilizziamo direttamente il metodo save che accetta PrivatoPayload
+            privatoService.save(payload);
             
         } catch (EmailAlreadyExistsException e) {
             System.err.println(e.getMessage()); // Stampa l'errore ma l'applicazione non si ferma

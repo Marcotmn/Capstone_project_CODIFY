@@ -29,16 +29,12 @@ public class AziendaRunner implements CommandLineRunner {
 	            throw new EmailAlreadyExistsException(payload.getEmail());
 	        }
 
-	        Azienda nuovaAzienda = new Azienda(
-	            payload.getUsername(), payload.getEmail(), payload.getPassword(), 
-	            payload.getIndirizzo(), payload.getNumeroTelefono(), payload.getCartaDiCredito(), payload.getRuolo(), 
-	            payload.getNomeAzienda(), payload.getTipoAzienda(), payload.getPartitaIva(), payload.getSitoWeb()
-	        );
-
-	        aziendaService.save(nuovaAzienda);
+	        // Chiamiamo direttamente il metodo save con il payload
+	        aziendaService.save(payload);
 	        
 	    } catch (EmailAlreadyExistsException e) {
 	        System.err.println(e.getMessage()); // Stampa l'errore ma l'applicazione non si ferma
 	    }
 	}
+
 }
