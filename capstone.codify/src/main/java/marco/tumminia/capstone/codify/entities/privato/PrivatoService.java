@@ -58,10 +58,6 @@ public class PrivatoService {
         return privatoRepository.findByNome(nome);
     }
 
-    public List<Annuncio> getAnnunciPerPrivato(UUID idPrivato) {
-        Privato privato = findById(idPrivato);
-        return privato.getAnnunci();
-    }
     
     public Privato updatePrivato(UUID id, Privato updatedPrivatoData) {
         Privato existingPrivato = findById(id);

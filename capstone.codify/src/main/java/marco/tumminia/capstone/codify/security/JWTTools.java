@@ -10,31 +10,33 @@ import io.jsonwebtoken.security.Keys;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 import marco.tumminia.capstone.codify.exceptions.UnauthorizedException;
 
-
 @Component
 public class JWTTools {
 
-	@Value("${spring.jwt.secret}")
-	private String secret;
+    @Value("${spring.jwt.secret}")
+    private String secret;
 
-	public String createToken(Utente u) {
-		String token = Jwts.builder().setSubject(u.getIdUtente().toString()).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
-				.signWith(Keys.hmacShaKeyFor(secret.getBytes())).compact();
-		return token;
-	}
+    public String createToken(Utente u) {
+        String token = Jwts.builder()
+                .setSubject(u.getIdUtente().toString())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                .compact();
+        return token;
+    }
 
-	public void verifyToken(String token) {
-		try {
-			Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parse(token);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			throw new UnauthorizedException("Il token non è valido! Effettua nuovamente il login");
-		}
-	}
+    public void verifyToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parse(token);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new UnauthorizedException("Il token non è valido! Effettua nuovamente il login");
+        }
+    }
 
-	public String extractSubject(String token) {
-		return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parseClaimsJws(token)
-				.getBody().getSubject();
-	}
+    public String extractSubject(String token) {
+        return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parseClaimsJws(token)
+                .getBody().getSubject();
+    }
 }

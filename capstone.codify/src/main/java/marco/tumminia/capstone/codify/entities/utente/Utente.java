@@ -33,12 +33,15 @@ import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 @Entity
 @Table(name = "utenti")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_utente")
+@DiscriminatorColumn(name = "tipo_utente", discriminatorType = DiscriminatorType.STRING)
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties ({ "password", "cartaDiCredito" })
 
 public class Utente implements UserDetails {
+	
+	@OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Annuncio> annunci = new ArrayList<>();
 	
 	@Id
 	@GeneratedValue
@@ -52,14 +55,6 @@ public class Utente implements UserDetails {
 	
 	@Enumerated(EnumType.STRING)
 	private Ruolo ruolo;
-	
-	 @OneToMany(mappedBy = "pubblicante", cascade = CascadeType.ALL)
-	    private List<Annuncio> annunci = new ArrayList<>();
-	
-    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Fattura> fatture = new ArrayList<>();
-    
-  
 
 	
 	public Utente(String username, String email, String password, String indirizzo, String numeroTelefono, String cartaDiCredito, Ruolo ruolo) {
@@ -78,11 +73,6 @@ public class Utente implements UserDetails {
 		return List.of(new SimpleGrantedAuthority(ruolo.name()));
 	}
 
-	//@Override
-	//public String getPassword() {
-	//	// TODO Auto-generated method stub
-	//	return password;
-	//}
 	
 	public UUID getIdUtente() {
 	    return id;
@@ -117,5 +107,20 @@ public class Utente implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+	    return "Utente{" +
+	            "id=" + id +
+	            ", username='" + username + '\'' +
+	            ", email='" + email + '\'' +
+	            ", password='" + password + '\'' +
+	            ", indirizzo='" + indirizzo + '\'' +
+	            ", numeroTelefono='" + numeroTelefono + '\'' +
+	            ", cartaDiCredito='" + cartaDiCredito + '\'' +
+	            ", ruolo=" + ruolo +
+	            '}';
+	}
+
 
 }

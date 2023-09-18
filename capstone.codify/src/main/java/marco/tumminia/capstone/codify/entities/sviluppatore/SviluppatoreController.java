@@ -32,20 +32,12 @@ public class SviluppatoreController {
         return new ResponseEntity<>(createdSviluppatore, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{idSviluppatore}/proposte")
-    public List<PropostaSviluppatore> getPropostePerSviluppatore(@PathVariable UUID idSviluppatore) {
-        return sviluppatoreService.getPropostePerSviluppatore(idSviluppatore);
-    }
 
     @GetMapping("/{idSviluppatore}")
     public Sviluppatore getSviluppatoreById(@PathVariable UUID idSviluppatore) {
         return sviluppatoreService.findById(idSviluppatore);
     }
 
-    @GetMapping("/{idSviluppatore}/recensioni")
-    public List<Recensione> getRecensioniPerSviluppatore(@PathVariable UUID idSviluppatore) {
-        return sviluppatoreService.getRecensioniPerSviluppatore(idSviluppatore);
-    }
 
 
     @PutMapping("/{idSviluppatore}")

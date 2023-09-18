@@ -1,9 +1,12 @@
 package marco.tumminia.capstone.codify.entities.privato;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -20,9 +23,12 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)  
-@Table(name = "privati")
 
 public class Privato extends Utente {
+	
+	@OneToMany(mappedBy = "privato", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Annuncio> annunci = new ArrayList<>();
+
 	
 	private String nome;
 	private String cognome;
@@ -38,8 +44,13 @@ public class Privato extends Utente {
 	}
 	
 	@Override
-	public String getDisplayName() {
-	    return this.nome;
+	public String toString() {
+	    return "Privato{" +
+	            "nome='" + nome + '\'' +
+	            ", cognome='" + cognome + '\'' +
+	            ", codiceFiscale='" + codiceFiscale + '\'' +
+	            "} " + super.toString();
 	}
+
 
 }

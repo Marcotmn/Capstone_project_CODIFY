@@ -3,6 +3,7 @@ package marco.tumminia.capstone.codify.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,6 +35,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sviluppatore/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/azienda/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/privato/register").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/annunci/pubblica").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();

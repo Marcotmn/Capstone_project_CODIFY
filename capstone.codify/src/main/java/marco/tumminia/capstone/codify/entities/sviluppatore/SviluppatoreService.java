@@ -58,12 +58,6 @@ public class SviluppatoreService {
     }
 
 
-    public List<PropostaSviluppatore> getPropostePerSviluppatore(UUID id) {
-        Sviluppatore sviluppatore = findById(id);
-        return sviluppatore.getProposte();
-    }
-    
-
     public Sviluppatore updateSviluppatore(UUID id, Sviluppatore updatedSviluppatoreData) {
         Sviluppatore existingSviluppatore = findById(id);
         
@@ -81,11 +75,7 @@ public class SviluppatoreService {
     }
     
 
-    public List<Recensione> getRecensioniPerSviluppatore(UUID id) {
-        Sviluppatore sviluppatore = findById(id);
-        // Supponendo che tu abbia un getter chiamato getRecensioni nella tua classe Sviluppatore che restituisce tutte le recensioni per uno sviluppatore.
-        return sviluppatore.getRecensioni();
-    }
+ 
 
     public void deleteSviluppatore(UUID id) {
         sviluppatoreRepository.deleteById(id);

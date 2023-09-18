@@ -41,11 +41,6 @@ public class AziendaController {
         return aziendaService.findByNomeAzienda(nomeAzienda);
     }
     
-    @GetMapping("/{idAzienda}/annunci")
-    public List<Annuncio> getAnnunciByPrivato(@PathVariable UUID idAzienda) {
-        return aziendaService.getAnnunciPerAzienda(idAzienda);
-    }
-
     @PutMapping("/{idAzienda}")
     public Azienda updateAzienda(@PathVariable UUID idAzienda, @RequestBody Azienda updatedData) {
         return aziendaService.updateAzienda(idAzienda, updatedData);

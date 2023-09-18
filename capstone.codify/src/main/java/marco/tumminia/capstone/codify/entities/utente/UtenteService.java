@@ -24,7 +24,7 @@ public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
     
-	// SALVA NUOVO UTENTE + ECCEZIONE SE VIENE USATA LA STESSA EMAIL
+	
 	public Utente save(NuovoUtentePayload body) {
 		utenteRepository.findByEmail(body.getEmail()).ifPresent(utente -> {
 			throw new BadRequestException("L'email " + body.getEmail() + " è gia stata utilizzata");

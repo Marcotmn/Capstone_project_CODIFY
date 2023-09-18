@@ -14,7 +14,7 @@ import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor // Costruttore senza argomenti potrebbe essere utile
+@NoArgsConstructor 
 public class UtenteResponsePayload {
     private UUID id;
     private String username;

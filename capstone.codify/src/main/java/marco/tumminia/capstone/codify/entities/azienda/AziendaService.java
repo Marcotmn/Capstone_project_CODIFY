@@ -56,10 +56,6 @@ public class AziendaService {
         return aziendaRepository.findByNomeAzienda(nomeAzienda);
     }
     
-    public List<Annuncio> getAnnunciPerAzienda(UUID idAzienda) {
-        Azienda azienda = findById(idAzienda);
-        return azienda.getAnnunci();
-    }
 
     public Azienda updateAzienda(UUID id, Azienda updatedAziendaData) {
         Azienda existingAzienda = findById(id);

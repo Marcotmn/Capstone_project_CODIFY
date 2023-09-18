@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
+import marco.tumminia.capstone.codify.entities.annuncio.AnnuncioRepository;
+import marco.tumminia.capstone.codify.entities.annuncio.AnnuncioService;
 import marco.tumminia.capstone.codify.entities.sviluppatore.SviluppatoreService;
 
 import java.util.List;
@@ -36,10 +39,10 @@ public class UtenteController {
 
     @Autowired
     UtenteService utenteService;
+
+    @Autowired
+    private AnnuncioService annuncioService;
     
-  
-
-
     @PostMapping("/register")
     public ResponseEntity<Utente> registerUser(@RequestBody NuovoUtentePayload payload) {
         Utente createdUser = utenteService.save(payload);
@@ -56,10 +59,16 @@ public class UtenteController {
         return utenteService.findById(idUtente);
     }
     
-   
+    @GetMapping("/utente/{utenteId}/annunci")
+    public List<Annuncio> getAnnunciByUtente(@PathVariable UUID utenteId) {
+        // Recupera l'utente dal repository in base all'ID fornito
+        Utente utente = utenteService.findById(utenteId);
 
+        // Recupera la lista degli annunci associati all'utente
+        List<Annuncio> annunci = annuncioService.getAnnunciByUtente(utente);
 
-
+        return annunci;
+    }
 
     @PutMapping("/{idUtente}")
     public Utente updateUser(@PathVariable UUID idUtente, @RequestBody NuovoUtentePayload body) {

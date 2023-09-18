@@ -42,11 +42,6 @@ public class PrivatoController {
         return privatoService.findByNome(nomePrivato);
     }
 
-    @GetMapping("/{idPrivato}/annunci")
-    public List<Annuncio> getAnnunciByPrivato(@PathVariable UUID idPrivato) {
-        return privatoService.getAnnunciPerPrivato(idPrivato);
-    }
-    
     @PutMapping("/{idPrivato}")
     public Privato updatePrivato(@PathVariable UUID id, @RequestBody Privato updatedData) {
         return privatoService.updatePrivato(id, updatedData);
