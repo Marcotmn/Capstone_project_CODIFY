@@ -30,7 +30,7 @@ public class PrivatoRunner implements CommandLineRunner {
             }
 
             // Utilizziamo direttamente il metodo save che accetta PrivatoPayload
-            privatoService.save(payload);
+           // privatoService.save(payload);
             
         } catch (EmailAlreadyExistsException e) {
             System.err.println(e.getMessage()); // Stampa l'errore ma l'applicazione non si ferma

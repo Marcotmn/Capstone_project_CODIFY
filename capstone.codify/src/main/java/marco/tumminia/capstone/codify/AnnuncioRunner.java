@@ -32,7 +32,7 @@ public class AnnuncioRunner implements CommandLineRunner {
         );
 
         // Chiamare il servizio per creare un nuovo annuncio
-      //  Annuncio nuovoAnnuncio = annuncioService.createAnnuncio(payload);
+// Annuncio nuovoAnnuncio = annuncioService.createAnnuncio(payload);
 
         // Stampare l'annuncio appena creato
 

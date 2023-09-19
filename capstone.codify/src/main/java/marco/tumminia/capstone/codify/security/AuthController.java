@@ -44,15 +44,17 @@ public class AuthController {
 	@PostMapping("/login")
 	public LoginSuccessfullPayload login(@RequestBody UtenteLoginPayload body) {
 
-		Utente utente = utenteService.findByEmail(body.getEmail());
+	    Utente utente = utenteService.findByEmail(body.getEmail());
 
-		if (bcrypt.matches(body.getPassword(), utente.getPassword())) {
-			String token = jwtTools.createToken(utente);
-			return new LoginSuccessfullPayload(token);
-		} else {
-			throw new UnauthorizedException("Credenziali non valide");
-		}
+	    if (bcrypt.matches(body.getPassword(), utente.getPassword())) {
+	        String token = jwtTools.createToken(utente);
+	        String message = "Login avvenuto con successo"; 
+	        return new LoginSuccessfullPayload(token, message);
+	    } else {
+	        throw new UnauthorizedException("Credenziali non valide");
+	    }
 	}
+
 
 	@PostMapping("/logout")
 	public ResponseEntity<String> logout() {

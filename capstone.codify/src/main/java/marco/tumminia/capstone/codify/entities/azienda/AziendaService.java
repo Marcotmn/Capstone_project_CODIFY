@@ -3,13 +3,12 @@ package marco.tumminia.capstone.codify.entities.azienda;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
-import marco.tumminia.capstone.codify.entities.privato.Privato;
+import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
+import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @Service
@@ -21,23 +20,45 @@ public class AziendaService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
-    public Azienda save(AziendaPayload payload) {
-        Azienda azienda = new Azienda();
+    public RegistrationSuccessResponse save(AziendaPayload payload) {
+        try {
+            String email = payload.getEmail();
 
-        azienda.setUsername(payload.getUsername());
-        azienda.setEmail(payload.getEmail());
-        azienda.setPassword(passwordEncoder.encode(payload.getPassword()));
-        azienda.setIndirizzo(payload.getIndirizzo());
-        azienda.setNumeroTelefono(payload.getNumeroTelefono());
-        azienda.setCartaDiCredito(payload.getCartaDiCredito());
-        azienda.setRuolo(payload.getRuolo());
-        azienda.setNomeAzienda(payload.getNomeAzienda());
-        azienda.setTipoAzienda(payload.getTipoAzienda());
-        azienda.setPartitaIva(payload.getPartitaIva());
-        azienda.setSitoWeb(payload.getSitoWeb());
+            // VERIFICA EMAIL GIA UTILIZZATA
+            if (aziendaRepository.findByEmail(email) != null) {
+                throw new EmailAlreadyExistsException(email);
+            }
 
-        return aziendaRepository.save(azienda);
+            Azienda azienda = new Azienda();
+
+            azienda.setUsername(payload.getUsername());
+            azienda.setEmail(payload.getEmail());
+            azienda.setPassword(passwordEncoder.encode(payload.getPassword()));
+            azienda.setIndirizzo(payload.getIndirizzo());
+            azienda.setNumeroTelefono(payload.getNumeroTelefono());
+            azienda.setCartaDiCredito(payload.getCartaDiCredito());
+            azienda.setRuolo(payload.getRuolo());
+            azienda.setNomeAzienda(payload.getNomeAzienda());
+            azienda.setTipoAzienda(payload.getTipoAzienda());
+            azienda.setPartitaIva(payload.getPartitaIva());
+            azienda.setSitoWeb(payload.getSitoWeb());
+
+            azienda = aziendaRepository.save(azienda); 
+
+          //MESSAGGIO DI CONFERMA SU POSTMAN
+            String successMessage = ("L'utente è stato registrato con successo.");
+
+            return new RegistrationSuccessResponse(successMessage);
+            
+            
+          //ECCEZIONE NON BLOCCANTE SE EMAIL GIA STATA UTILIZZATA
+        } catch (EmailAlreadyExistsException e) {
+            System.err.println(e.getMessage()); // Stampa l'errore ma non ferma l'app
+        }
+
+        return null; 
     }
+
     
     public Azienda findByEmail(String email) {
     	return aziendaRepository.findByEmail(email);

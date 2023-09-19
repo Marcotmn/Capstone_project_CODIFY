@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
 import marco.tumminia.capstone.codify.entities.recensione.Recensione;
+import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
 
 @RestController
 @RequestMapping("/sviluppatore")
@@ -27,10 +28,18 @@ public class SviluppatoreController {
     SviluppatoreService sviluppatoreService;
     
     @PostMapping("/register")
-    public ResponseEntity<Sviluppatore> registerSviluppatore(@RequestBody SviluppatorePayload payload) {
-        Sviluppatore createdSviluppatore = sviluppatoreService.save(payload);
-        return new ResponseEntity<>(createdSviluppatore, HttpStatus.CREATED);
+    public ResponseEntity<?> registerSviluppatore(@RequestBody SviluppatorePayload payload) {
+        //MESSAGGIO DI CONFERMA SU POSTMAN
+        RegistrationSuccessResponse response = sviluppatoreService.save(payload);
+        if (response != null) {
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } else {
+        	//MESSAGGIO DI ERRORE REGISTRAZIONE SU POSTMAN
+
+            return new ResponseEntity<>("L'email inserita è già stata utilizzata", HttpStatus.BAD_REQUEST);
+        }
     }
+
 
 
     @GetMapping("/{idSviluppatore}")

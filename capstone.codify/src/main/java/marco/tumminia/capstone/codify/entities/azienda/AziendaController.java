@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
+import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
+import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 
 @RestController
 @RequestMapping("/azienda")
@@ -26,10 +28,17 @@ public class AziendaController {
     
     
     @PostMapping("/register")
-    public ResponseEntity<Azienda> registerAzienda(@RequestBody AziendaPayload payload) {
-        Azienda createdAzienda = aziendaService.save(payload);
-        return new ResponseEntity<>(createdAzienda, HttpStatus.CREATED);
-    }
+    public ResponseEntity<?> registerAzienda(@RequestBody AziendaPayload payload) {
+    	//MESSAGGIO DI CONFERMA SU POSTMAN
+    	 RegistrationSuccessResponse response = aziendaService.save(payload);
+    	 if (response != null) {
+             return new ResponseEntity<>(response, HttpStatus.CREATED);
+         } else {
+         	//MESSAGGIO DI ERRORE REGISTRAZIONE SU POSTMAN
+             return new ResponseEntity<>("L'email inserita è già stata utilizzata", HttpStatus.BAD_REQUEST);
+         }
+     }
+
 
     @GetMapping("/{idAzienda}")
     public Azienda getAziendaById(@PathVariable UUID idAzienda) {

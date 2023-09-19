@@ -1,10 +1,16 @@
 package marco.tumminia.capstone.codify.entities.utente;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
-@AllArgsConstructor
-@Getter
+@Data
 public class LoginSuccessfullPayload {
-	String accessToken;
+    private String token;
+    private String message;
+
+    public LoginSuccessfullPayload(String token, String message) {
+        this.token = token;
+        this.message = message;
+    }
 }

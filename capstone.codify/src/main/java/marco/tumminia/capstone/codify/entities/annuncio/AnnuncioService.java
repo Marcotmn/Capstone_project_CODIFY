@@ -26,22 +26,21 @@ public class AnnuncioService {
     public Annuncio createAnnuncio(AnnuncioPayload payload) {
         Annuncio annuncio = new Annuncio();
 
-        // Ottieni l'utente autenticato dal contesto di sicurezza
+        // METODO PER OTTENERE L'UTENTE AUTENTICATO
         Utente utenteAutenticato = authenticationFacade.getAuthenticatedUser();
 
         if (utenteAutenticato == null) {
             throw new UnauthorizedException("Utente non autenticato");
         }
 
-        // Assicurati che l'utente autenticato sia un'azienda o un privato
+        // CONTROLLO SULL'UTENTE AUTENTICATO
         if (utenteAutenticato instanceof Azienda || utenteAutenticato instanceof Privato) {
-            // Associa l'annuncio all'utente autenticato
+            // ASSOCIAZIONE DELL'UTENTE AUTENTICATO ALL'ANNUNCIO
             annuncio.setUtente(utenteAutenticato);
         } else {
             throw new IllegalArgumentException("L'utente autenticato non è un'azienda o un privato.");
         }
 
-        // Altri set e salvataggio
         annuncio.setTitolo(payload.getTitolo());
         annuncio.setDescrizione(payload.getDescrizione());
         annuncio.setCategoria(payload.getCategoria());

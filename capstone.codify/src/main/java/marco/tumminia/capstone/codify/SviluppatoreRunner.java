@@ -34,7 +34,7 @@ import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 
                 // Non hai bisogno di creare l'oggetto Sviluppatore qui,
                 // poiché il metodo save del servizio già si occupa di questo.
-                sviluppatoreService.save(payload);
+               // sviluppatoreService.save(payload);
                 
             } catch (EmailAlreadyExistsException e) {
                 System.err.println(e.getMessage()); // Stampa l'errore ma non ferma l'app

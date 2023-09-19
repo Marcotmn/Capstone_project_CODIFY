@@ -30,7 +30,7 @@ public class AziendaRunner implements CommandLineRunner {
 	        }
 
 	        // Chiamiamo direttamente il metodo save con il payload
-	        aziendaService.save(payload);
+	      //  aziendaService.save(payload);
 	        
 	    } catch (EmailAlreadyExistsException e) {
 	        System.err.println(e.getMessage()); // Stampa l'errore ma l'applicazione non si ferma

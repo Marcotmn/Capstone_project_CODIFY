@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
+import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
+import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @Service
@@ -20,22 +22,43 @@ public class PrivatoService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
-    public Privato save(PrivatoPayload payload) {
-        Privato privato = new Privato();
+    public RegistrationSuccessResponse save(PrivatoPayload payload) {
+        try {
+            String email = payload.getEmail();
 
-        privato.setUsername(payload.getUsername());
-        privato.setEmail(payload.getEmail());
-        privato.setPassword(passwordEncoder.encode(payload.getPassword()));
-        privato.setIndirizzo(payload.getIndirizzo());
-        privato.setNumeroTelefono(payload.getNumeroTelefono());
-        privato.setCartaDiCredito(payload.getCartaDiCredito());
-        privato.setRuolo(payload.getRuolo());
-        privato.setNome(payload.getNome());
-        privato.setCognome(payload.getCognome());
-        privato.setCodiceFiscale(payload.getCodiceFiscale());
+            // VERIFICA EMAIL GIA UTILIZZATA
+            if (privatoRepository.findByEmail(email) != null) {
+                throw new EmailAlreadyExistsException(email);
+            }
 
-        return privatoRepository.save(privato);
+            Privato privato = new Privato();
+
+            privato.setUsername(payload.getUsername());
+            privato.setEmail(payload.getEmail());
+            privato.setPassword(passwordEncoder.encode(payload.getPassword()));
+            privato.setIndirizzo(payload.getIndirizzo());
+            privato.setNumeroTelefono(payload.getNumeroTelefono());
+            privato.setCartaDiCredito(payload.getCartaDiCredito());
+            privato.setRuolo(payload.getRuolo());
+            privato.setNome(payload.getNome());
+            privato.setCognome(payload.getCognome());
+            privato.setCodiceFiscale(payload.getCodiceFiscale());
+
+            privato = privatoRepository.save(privato);
+            
+            //MESSAGGIO DI CONFERMA SU POSTMAN
+            String successMessage = "L'account è stato registrato con successo.";
+
+            return new RegistrationSuccessResponse(successMessage);
+ 
+          //ECCEZIONE NON BLOCCANTE SE EMAIL GIA STATA UTILIZZATA
+        } catch (EmailAlreadyExistsException e) {
+            System.err.println(e.getMessage()); // Stampa l'errore ma non ferma l'app
+            return null;
+        }
     }
+
+
     
     public Optional<Privato> findFirstByOrderByIdAsc() {
         return privatoRepository.findFirstByOrderByIdAsc();

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import marco.tumminia.capstone.codify.entities.privato.Privato;
 import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
 import marco.tumminia.capstone.codify.entities.recensione.Recensione;
+import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
+import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @Service
@@ -21,28 +23,48 @@ public class SviluppatoreService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
-    //LOGICA PER SALVARE GLI SVILUPPATORI
+//LOGICA PER SALVARE GLI SVILUPPATORI
     
-    public Sviluppatore save(SviluppatorePayload payload) {
-        Sviluppatore sviluppatore = new Sviluppatore();
+    public RegistrationSuccessResponse save(SviluppatorePayload payload) {
+        try {
+            String email = payload.getEmail();
 
-        sviluppatore.setUsername(payload.getUsername());
-        sviluppatore.setEmail(payload.getEmail());
-        sviluppatore.setPassword(passwordEncoder.encode(payload.getPassword())); //COSì UTILIZZO IL BCRYPT NEL MOMENTO DELLA REGISTRAZIONE TRAMITE POSTMAN
-        sviluppatore.setIndirizzo(payload.getIndirizzo());
-        sviluppatore.setNumeroTelefono(payload.getNumeroTelefono());
-        sviluppatore.setCartaDiCredito(payload.getCartaDiCredito());
-        sviluppatore.setRuolo(payload.getRuolo());
-        sviluppatore.setNome(payload.getNome());
-        sviluppatore.setCognome(payload.getCognome());
-        sviluppatore.setTitolo(payload.getTitolo());
-        sviluppatore.setBio(payload.getBio());
-        sviluppatore.setLinkPortfolio(payload.getLinkPortfolio());
-        sviluppatore.setCompetenze(payload.getCompetenze());
-        sviluppatore.setPartitaIva(payload.getPartitaIva());
+            // VERIFICA EMAIL GIA UTILIZZATA
+            if (sviluppatoreRepository.findByEmail(email) != null) {
+                throw new EmailAlreadyExistsException(email);
+            }
 
-        return sviluppatoreRepository.save(sviluppatore);
+            Sviluppatore sviluppatore = new Sviluppatore();
+
+            sviluppatore.setUsername(payload.getUsername());
+            sviluppatore.setEmail(payload.getEmail());
+            sviluppatore.setPassword(passwordEncoder.encode(payload.getPassword()));
+            sviluppatore.setIndirizzo(payload.getIndirizzo());
+            sviluppatore.setNumeroTelefono(payload.getNumeroTelefono());
+            sviluppatore.setCartaDiCredito(payload.getCartaDiCredito());
+            sviluppatore.setRuolo(payload.getRuolo());
+            sviluppatore.setNome(payload.getNome());
+            sviluppatore.setCognome(payload.getCognome());
+            sviluppatore.setTitolo(payload.getTitolo());
+            sviluppatore.setBio(payload.getBio());
+            sviluppatore.setLinkPortfolio(payload.getLinkPortfolio());
+            sviluppatore.setCompetenze(payload.getCompetenze());
+            sviluppatore.setPartitaIva(payload.getPartitaIva());
+
+            sviluppatore = sviluppatoreRepository.save(sviluppatore);
+            
+            //MESSAGGIO DI CONFERMA SU POSTMAN
+            String successMessage = "L'account è stato registrato con successo.";
+
+            return new RegistrationSuccessResponse(successMessage);
+
+            //ECCEZIONE NON BLOCCANTE SE EMAIL GIA STATA UTILIZZATA
+        } catch (EmailAlreadyExistsException e) {
+            System.err.println(e.getMessage()); // Stampa l'errore ma non ferma l'app
+            return null;
+        }
     }
+
 
     public Sviluppatore findById(UUID id) {
         return sviluppatoreRepository.findById(id).orElseThrow(() -> new NotFoundException("Sviluppatore non trovato con ID: " + id));

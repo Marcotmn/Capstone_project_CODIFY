@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
 import marco.tumminia.capstone.codify.entities.sviluppatore.SviluppatorePayload;
+import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
 
 @RestController
 @RequestMapping("/privato")
@@ -27,10 +28,17 @@ public class PrivatoController {
     private PrivatoService privatoService;
 
     @PostMapping("/register")
-    public ResponseEntity<Privato> registerPrivato(@RequestBody PrivatoPayload payload) {
-        Privato createdPrivato = privatoService.save(payload);
-        return new ResponseEntity<>(createdPrivato, HttpStatus.CREATED);
+    public ResponseEntity<?> registerPrivato(@RequestBody PrivatoPayload payload) {
+    	//MESSAGGIO DI CONFERMA SU POSTMAN
+        RegistrationSuccessResponse response = privatoService.save(payload);
+        if (response != null) {
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } else {
+        	//MESSAGGIO DI ERRORE REGISTRAZIONE SU POSTMAN
+            return new ResponseEntity<>("L'email inserita è già stata utilizzata", HttpStatus.BAD_REQUEST);
+        }
     }
+
     
     @GetMapping("/{idPrivato}")
     public Privato getPrivatoById(@PathVariable UUID id) {

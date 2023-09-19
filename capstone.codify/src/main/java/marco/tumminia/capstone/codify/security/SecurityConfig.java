@@ -35,7 +35,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sviluppatore/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/azienda/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/privato/register").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/annunci/pubblica").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/annunci/nuovoAnnuncio").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();
