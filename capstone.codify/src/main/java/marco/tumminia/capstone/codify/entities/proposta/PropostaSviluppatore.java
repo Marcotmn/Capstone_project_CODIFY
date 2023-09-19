@@ -2,7 +2,6 @@ package marco.tumminia.capstone.codify.entities.proposta;
 
 import java.time.LocalDate;
 import java.util.UUID;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,7 +20,6 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @Table(name = "proposte_sviluppatori")
 @Data
 @NoArgsConstructor
-
 
 public class PropostaSviluppatore {
 	
@@ -43,10 +41,8 @@ public class PropostaSviluppatore {
 	
 	private String descrizione;
 	private Double importoProposto;
-	
 	@Enumerated(EnumType.STRING)
 	private StatoProposta statoProposta;
-	
 	private LocalDate dataProposta;
 	
 	public PropostaSviluppatore(Sviluppatore sviluppatore, Annuncio annuncio, String descrizione, Double importoProposto, StatoProposta statoProposta, LocalDate dataProposta) {
@@ -57,5 +53,4 @@ public class PropostaSviluppatore {
 		this.statoProposta = statoProposta;
 		this.dataProposta = dataProposta;
 	}
-	
 }

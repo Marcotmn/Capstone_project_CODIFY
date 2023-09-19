@@ -2,7 +2,6 @@ package marco.tumminia.capstone.codify.entities.azienda;
 
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
-
-import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
-import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 
 @RestController
 @RequestMapping("/azienda")
@@ -25,7 +21,6 @@ public class AziendaController {
 
     @Autowired
     private AziendaService aziendaService;
-    
     
     @PostMapping("/register")
     public ResponseEntity<?> registerAzienda(@RequestBody AziendaPayload payload) {
@@ -38,7 +33,6 @@ public class AziendaController {
              return new ResponseEntity<>("L'email inserita è già stata utilizzata", HttpStatus.BAD_REQUEST);
          }
      }
-
 
     @GetMapping("/{idAzienda}")
     public Azienda getAziendaById(@PathVariable UUID idAzienda) {

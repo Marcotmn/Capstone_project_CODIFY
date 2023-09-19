@@ -31,7 +31,8 @@ public class AuthController {
 
 	@Autowired
 	PasswordEncoder bcrypt;
-
+	
+	//ROTTE E METODI DI REGISTRAZIONE, LOGIN E LOGOUT
 	@PostMapping("/register")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Utente saveUtente(@RequestBody NuovoUtentePayload body) {

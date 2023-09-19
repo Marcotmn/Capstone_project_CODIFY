@@ -12,10 +12,12 @@ import marco.tumminia.capstone.codify.exceptions.UnauthorizedException;
 
 @Component
 public class JWTTools {
-
+	
     @Value("${spring.jwt.secret}")
     private String secret;
 
+    
+    //METODO PER CREARE IL TOKEN
     public String createToken(Utente u) {
         String token = Jwts.builder()
                 .setSubject(u.getIdUtente().toString())

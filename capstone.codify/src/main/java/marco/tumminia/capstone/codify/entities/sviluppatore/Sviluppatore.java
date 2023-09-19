@@ -1,17 +1,10 @@
 package marco.tumminia.capstone.codify.entities.sviluppatore;
 
-import java.util.List;
-
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
-import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 import marco.tumminia.capstone.codify.entities.utente.Ruolo;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 

@@ -6,15 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import marco.tumminia.capstone.codify.entities.azienda.Azienda;
-import marco.tumminia.capstone.codify.entities.privato.Privato;
-import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor 
+
+//////////QUELLO CHE VIENE MOSTRATO ALL'UTENTE DOPO LA REGISTRAZIONE
 public class UtenteResponsePayload {
     private UUID id;
     private String username;

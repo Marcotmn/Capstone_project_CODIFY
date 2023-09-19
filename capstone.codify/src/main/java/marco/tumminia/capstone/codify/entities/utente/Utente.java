@@ -1,16 +1,14 @@
 package marco.tumminia.capstone.codify.entities.utente;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -25,9 +23,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
-import marco.tumminia.capstone.codify.entities.fattura.Fattura;
-import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
-import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 
 @SuppressWarnings("serial")
 @Entity
@@ -55,7 +50,6 @@ public class Utente implements UserDetails {
 	
 	@Enumerated(EnumType.STRING)
 	private Ruolo ruolo;
-
 	
 	public Utente(String username, String email, String password, String indirizzo, String numeroTelefono, String cartaDiCredito, Ruolo ruolo) {
 		this.username = username;
@@ -67,17 +61,14 @@ public class Utente implements UserDetails {
 		this.ruolo = ruolo;
 	}
 	
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(ruolo.name()));
 	}
 
-	
 	public UUID getIdUtente() {
 	    return id;
 	}
-
 
     public String getDisplayName() {
         return ""; 
@@ -121,6 +112,4 @@ public class Utente implements UserDetails {
 	            ", ruolo=" + ruolo +
 	            '}';
 	}
-
-
 }

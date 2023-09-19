@@ -3,7 +3,6 @@ package marco.tumminia.capstone.codify.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -31,18 +30,23 @@ public class SecurityConfig {
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
+		
+		//LE ROTTE PROTETTE O MENO
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/sviluppatore/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/azienda/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/privato/register").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/annunci/nuovoAnnuncio").authenticated());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/pubblicaProposta").authenticated());
+		//////////ENDPOINT PER LE PROPOSTE
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/pubblicaProposta/{annuncioId}").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/mieProposte").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/{id}").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/mieProposte").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();
 	}
 
-	
 	//BEAN PER CRIPTARE LA PASSWORD
 	@Bean
 	PasswordEncoder encoder() {

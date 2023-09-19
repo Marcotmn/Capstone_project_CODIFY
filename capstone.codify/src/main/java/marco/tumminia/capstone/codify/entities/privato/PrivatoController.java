@@ -2,7 +2,6 @@ package marco.tumminia.capstone.codify.entities.privato;
 
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
-import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
-import marco.tumminia.capstone.codify.entities.sviluppatore.SviluppatorePayload;
 import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
 
 @RestController
@@ -38,7 +33,6 @@ public class PrivatoController {
             return new ResponseEntity<>("L'email inserita è già stata utilizzata", HttpStatus.BAD_REQUEST);
         }
     }
-
     
     @GetMapping("/{idPrivato}")
     public Privato getPrivatoById(@PathVariable UUID id) {
@@ -60,5 +54,4 @@ public class PrivatoController {
         privatoService.deletePrivato(id);
         return ResponseEntity.noContent().build();
     }
-    
 }

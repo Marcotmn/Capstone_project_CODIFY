@@ -2,14 +2,9 @@ package marco.tumminia.capstone.codify.entities.sviluppatore;
 
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import marco.tumminia.capstone.codify.entities.privato.Privato;
-import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
-import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
 import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
@@ -24,12 +19,10 @@ public class SviluppatoreService {
     private PasswordEncoder passwordEncoder;
     
 //LOGICA PER SALVARE GLI SVILUPPATORI
-    
     public RegistrationSuccessResponse save(SviluppatorePayload payload) {
         try {
+        	// VERIFICA EMAIL GIA UTILIZZATA
             String email = payload.getEmail();
-
-            // VERIFICA EMAIL GIA UTILIZZATA
             if (sviluppatoreRepository.findByEmail(email) != null) {
                 throw new EmailAlreadyExistsException(email);
             }
@@ -65,20 +58,17 @@ public class SviluppatoreService {
         }
     }
 
-
     public Sviluppatore findById(UUID id) {
-        return sviluppatoreRepository.findById(id).orElseThrow(() -> new NotFoundException("Sviluppatore non trovato con ID: " + id));
+        return sviluppatoreRepository.findById(id).orElseThrow(() -> new NotFoundException("Sviluppatore con ID " + id + " non trovato"));
     }
     
     public List<Sviluppatore> findAll() {
         return sviluppatoreRepository.findAll();
     }
-   
 
     public Sviluppatore findByEmail(String email) {
     	return sviluppatoreRepository.findByEmail(email);
     }
-
 
     public Sviluppatore updateSviluppatore(UUID id, Sviluppatore updatedSviluppatoreData) {
         Sviluppatore existingSviluppatore = findById(id);
@@ -95,12 +85,8 @@ public class SviluppatoreService {
         existingSviluppatore.setEmail(updatedSviluppatoreData.getEmail());
         return sviluppatoreRepository.save(existingSviluppatore);
     }
-    
-
- 
 
     public void deleteSviluppatore(UUID id) {
         sviluppatoreRepository.deleteById(id);
     }
-
 }

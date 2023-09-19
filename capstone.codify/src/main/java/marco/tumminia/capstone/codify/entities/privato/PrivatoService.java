@@ -3,12 +3,9 @@ package marco.tumminia.capstone.codify.entities.privato;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
 import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
@@ -57,8 +54,6 @@ public class PrivatoService {
             return null;
         }
     }
-
-
     
     public Optional<Privato> findFirstByOrderByIdAsc() {
         return privatoRepository.findFirstByOrderByIdAsc();
@@ -76,12 +71,10 @@ public class PrivatoService {
     	return privatoRepository.findByEmail(email);
     }
 
-    
     public List<Privato> findByNome(String nome) {
         return privatoRepository.findByNome(nome);
     }
 
-    
     public Privato updatePrivato(UUID id, Privato updatedPrivatoData) {
         Privato existingPrivato = findById(id);
         
@@ -93,18 +86,13 @@ public class PrivatoService {
         existingPrivato.setCartaDiCredito(updatedPrivatoData.getCartaDiCredito());
         existingPrivato.setEmail(updatedPrivatoData.getEmail());
        
-        
         return privatoRepository.save(existingPrivato);
     }
-
-    
 
     public void deletePrivato(UUID id) {
         if (!privatoRepository.existsById(id)) {
             throw new NotFoundException("Privato non trovato con ID: " + id);
         }
         privatoRepository.deleteById(id);
-    }
-
-   
+    } 
 }

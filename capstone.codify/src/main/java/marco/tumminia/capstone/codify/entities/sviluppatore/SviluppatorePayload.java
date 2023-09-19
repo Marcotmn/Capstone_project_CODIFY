@@ -16,7 +16,6 @@ public class SviluppatorePayload {
     private String numeroTelefono;
     private String cartaDiCredito;
     private Ruolo ruolo;
-
     private String nome;
     private String cognome;
     private String titolo;

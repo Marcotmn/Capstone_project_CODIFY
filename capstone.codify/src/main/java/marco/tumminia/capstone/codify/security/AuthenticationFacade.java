@@ -9,6 +9,7 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @Component
 public class AuthenticationFacade {
 
+	//METODO CHE RECUPERA L'UTENTE AUTENTICATO E NE RILEVA L'ISTANZA SPECIFICA (SVILUPPATORE, AZIENDA, PRIVATO)
     public Utente getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof Utente) {

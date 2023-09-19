@@ -34,19 +34,19 @@ public class PropostaSviluppatoreService {
     public PropostaSviluppatore createProposta(Sviluppatore sviluppatore, Annuncio annuncio, PropostaSviluppatorePayload payload) {
         Utente utenteAutenticato = authenticationFacade.getAuthenticatedUser();
 
-        // Verifica se l'utente è autenticato
+        // VERIFICA SE L'UTENTE è AUTENTICATP
         if (utenteAutenticato == null) {
             throw new UnauthorizedException("Utente non autenticato");
         }
 
-        // Verifica se l'utente è uno sviluppatore
+        // VERIFICA SE L'UTENTE è UNO SVILUPPATORE
         if (!(utenteAutenticato instanceof Sviluppatore)) {
             throw new IllegalArgumentException("Solo gli sviluppatori possono inviare proposte");
         }
 
         Sviluppatore sviluppatoreAutenticato = (Sviluppatore) utenteAutenticato;
 
-        // Verifica se lo sviluppatore ha già inviato una proposta per questo annuncio
+        // VERIFICA SE LO SVILUPPATORE HA GIA FATTO UNA PROPOSTA PER QUESTO ANNUNCIO
         if (propostaRepository.findByAnnuncioAndSviluppatore(annuncio, sviluppatoreAutenticato).isPresent()) {
             throw new BadRequestException("Hai già inviato una proposta per questo annuncio");
         }
@@ -69,7 +69,7 @@ public class PropostaSviluppatoreService {
 
         return propostaRepository.findByUtenteAndStatoProposta(utente, StatoProposta.IN_ATTESA);
     }
-
+    	// METODO PER ACCETTARE LA PROPOSTA
     public void accettaProposta(UUID idProposta) {
         PropostaSviluppatore proposta = findById(idProposta)
                 .orElseThrow(() -> new NotFoundException("Proposta non trovata"));
@@ -84,7 +84,8 @@ public class PropostaSviluppatoreService {
         proposta.setStatoProposta(StatoProposta.ACCETTATA);
         saveProposta(proposta);
     }
-
+    
+    	//METODO PER RIFIUTARE LA PROPOSTA
     public void rifiutaProposta(UUID idProposta) {
         PropostaSviluppatore proposta = findById(idProposta)
                 .orElseThrow(() -> new NotFoundException("Proposta non trovata"));

@@ -1,8 +1,6 @@
 package marco.tumminia.capstone.codify.entities.utente;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class LoginSuccessfullPayload {

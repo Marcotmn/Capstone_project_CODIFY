@@ -1,10 +1,11 @@
 package marco.tumminia.capstone.codify.entities.proposta;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.annuncio.AnnuncioService;
 import marco.tumminia.capstone.codify.entities.azienda.Azienda;
@@ -39,9 +39,9 @@ public class PropostaSviluppatoreController {
     @Autowired
     private AnnuncioService annuncioService;
 
-    // Endpoint per inviare una proposta associata a un annuncio specifico
+  //ENDPOINT PER RISPONDERE AD UN ANNUNCIO SPECIFICO(ID) CON UNA PROPOSTA
     @PostMapping("/pubblicaProposta/{annuncioId}")
-    public ResponseEntity<PropostaSviluppatore> creaProposta(
+    public ResponseEntity<Map<String, Object>> creaProposta(
         @PathVariable UUID annuncioId,
         @RequestBody PropostaSviluppatorePayload payload,
         @AuthenticationPrincipal Utente currentUser
@@ -52,7 +52,7 @@ public class PropostaSviluppatoreController {
 
         Sviluppatore sviluppatore = (Sviluppatore) currentUser;
 
-        // Recupera l'annuncio in base all'ID fornito
+        //METODO PER RECUPERARE L'ANNUNCIO TRAMITE L'ID
         Annuncio annuncio = annuncioService.findById(annuncioId);
 
         if (annuncio == null) {
@@ -61,40 +61,52 @@ public class PropostaSviluppatoreController {
 
         PropostaSviluppatore proposta = propostaService.createProposta(sviluppatore, annuncio, payload);
 
-        return new ResponseEntity<>(proposta, HttpStatus.CREATED);
-    }
+        // Recupera ulteriori informazioni necessarie
+        Utente utentePubblicatore = annuncio.getUtente();
 
+        // Crea un oggetto JSON personalizzato
+        Map<String, Object> response = new HashMap<>();
+        response.put("Stato proposta", "La proposta è stata inviata correttamente ed è in stato di attesa.");
+        response.put("idProposta", proposta.getId());
+        response.put("Nome annuncio", annuncio.getTitolo());
+
+        if (utentePubblicatore instanceof Azienda) {
+            response.put("Annuncio pubblicato da", ((Azienda) utentePubblicatore).getNomeAzienda());
+        } else if (utentePubblicatore instanceof Privato) {
+            response.put("Annuncio pubblicato da", ((Privato) utentePubblicatore).getNome() + " " + ((Privato) utentePubblicatore).getCognome());
+        }
+
+        return ResponseEntity.ok(response);
+    }
+    
     @GetMapping("/{id}")
     public PropostaSviluppatore getProposta(@PathVariable UUID id) {
         return propostaService.findById(id).orElseThrow(() -> new NotFoundException("Proposta non trovata"));
     }
-    
-    @GetMapping("/proposte/inAttesa")
-    public ResponseEntity<List<PropostaSviluppatore>> getProposteInAttesa(@AuthenticationPrincipal Utente currentUser) {
+
+    @PostMapping("/accettaProposta/{idProposta}")
+    public ResponseEntity<?> accettaProposta(@PathVariable UUID idProposta, @AuthenticationPrincipal Utente currentUser) {
         if (!(currentUser instanceof Azienda || currentUser instanceof Privato)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        // Per recupera le proposte in stato "IN_ATTESA" relative all'azienda o al privato
-        List<PropostaSviluppatore> proposteInAttesa = propostaService.getProposteInAttesa(currentUser);
-
-        return ResponseEntity.ok(proposteInAttesa);
-    }
-
-    @PostMapping("/accettaProposta/{idProposta}")
-    public ResponseEntity<?> accettaProposta(@PathVariable UUID idProposta) {
         propostaService.accettaProposta(idProposta);
         return ResponseEntity.ok("Proposta accettata con successo");
     }
 
     @PostMapping("/rifiutaProposta/{idProposta}")
-    public ResponseEntity<?> rifiutaProposta(@PathVariable UUID idProposta) {
+    public ResponseEntity<?> rifiutaProposta(@PathVariable UUID idProposta, @AuthenticationPrincipal Utente currentUser) {
+        if (!(currentUser instanceof Azienda || currentUser instanceof Privato)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         propostaService.rifiutaProposta(idProposta);
         return ResponseEntity.ok("Proposta rifiutata con successo");
     }
+
     
     @GetMapping("/mieProposte")
-    public ResponseEntity<List<PropostaSviluppatoreResponse>> getMieProposte(@AuthenticationPrincipal Utente currentUser) {
+    public ResponseEntity<List<Map<String, Object>>> getMieProposte(@AuthenticationPrincipal Utente currentUser) {
         if (!(currentUser instanceof Sviluppatore)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -102,13 +114,27 @@ public class PropostaSviluppatoreController {
         Sviluppatore sviluppatore = (Sviluppatore) currentUser;
         List<PropostaSviluppatore> proposte = propostaService.findBySviluppatore(sviluppatore);
 
-        // Converti le proposte in una lista di DTO (PropostaSviluppatoreResponse)
-        List<PropostaSviluppatoreResponse> response = proposte.stream()
-                .map(this::mapPropostaToResponse)
-                .collect(Collectors.toList());
+        // Creare una lista di mappe con le informazioni richieste
+        List<Map<String, Object>> response = new ArrayList<>();
+        for (PropostaSviluppatore proposta : proposte) {
+            Map<String, Object> propostaInfo = new HashMap<>();
+            propostaInfo.put("idProposta", proposta.getId());
+            propostaInfo.put("nomeAnnuncio", proposta.getAnnuncio().getTitolo());
+
+            // Determina il nome dell'azienda o del privato che ha pubblicato l'annuncio
+            Utente utenteAnnuncio = proposta.getAnnuncio().getUtente();
+            if (utenteAnnuncio instanceof Azienda) {
+                propostaInfo.put("nomePubblicante", ((Azienda) utenteAnnuncio).getNomeAzienda());
+            } else if (utenteAnnuncio instanceof Privato) {
+                propostaInfo.put("nomePubblicante", ((Privato) utenteAnnuncio).getNome());
+            }
+
+            response.add(propostaInfo);
+        }
 
         return ResponseEntity.ok(response);
     }
+
 
     private PropostaSviluppatoreResponse mapPropostaToResponse(PropostaSviluppatore proposta) {
         PropostaSviluppatoreResponse response = new PropostaSviluppatoreResponse();
@@ -122,7 +148,6 @@ public class PropostaSviluppatoreController {
         return response;
     }
 
-
     @GetMapping("/sviluppatore/{idSviluppatore}")
     public List<PropostaSviluppatore> getProposteBySviluppatore(@PathVariable UUID idSviluppatore) {
         Sviluppatore sviluppatore = sviluppatoreService.findById(idSviluppatore);
@@ -132,13 +157,10 @@ public class PropostaSviluppatoreController {
         return propostaService.findBySviluppatore(sviluppatore);
     }
 
-
-
     @DeleteMapping("/{id}")
     public void deleteProposta(@PathVariable UUID id) {
         propostaService.deleteById(id);
     }
-
 }
     
 
