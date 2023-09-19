@@ -5,20 +5,22 @@ import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
 
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 
 public class PropostaSviluppatoreResponse {
-    private UUID idProposta;
+    private UUID id;
     private String descrizione;
     private Double importoProposto;
     private StatoProposta statoProposta;
     private LocalDate dataProposta;
-    private Annuncio annuncio;  // o forse solo alcuni dettagli dell'annuncio
-    private Sviluppatore sviluppatore;  // o forse solo alcuni dettagli dello sviluppatore
-    // getters, setters, costruttori
+    private Annuncio annuncio; 
+    private Sviluppatore sviluppatore;
+  
 }

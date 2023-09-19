@@ -13,12 +13,11 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 
 @Repository
-
 	public interface AnnuncioRepository extends JpaRepository<Annuncio, UUID> {
-	List<Annuncio> findByUtente(Utente utente);
-
+		List<Annuncio> findByUtente(Utente utente);
 	    List<Annuncio> findByTitolo(String titolo);
 	    List<Annuncio> findByCategoria(CategoriaAnnuncio categoria);
+	    Optional<Annuncio> findById(UUID id);
 	    Optional<Annuncio> findFirstByOrderByIdAsc();
 	}
 

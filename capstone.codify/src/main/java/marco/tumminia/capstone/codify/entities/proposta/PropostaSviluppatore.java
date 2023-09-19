@@ -15,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
+import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 @Entity
 @Table(name = "proposte_sviluppatori")
@@ -28,6 +29,10 @@ public class PropostaSviluppatore {
 	@GeneratedValue
 	private UUID id;
 	
+    @ManyToOne
+    @JoinColumn(name = "id_utente")
+    private Utente utente;
+    
 	@ManyToOne
 	@JoinColumn(name = "id_sviluppatore")
 	private Sviluppatore sviluppatore;

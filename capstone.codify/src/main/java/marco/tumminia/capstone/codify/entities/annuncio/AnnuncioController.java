@@ -26,17 +26,24 @@ public class AnnuncioController {
     public ResponseEntity<?> createAnnuncio(@RequestBody AnnuncioPayload payload) {
         try {
             Annuncio createdAnnuncio = annuncioService.createAnnuncio(payload);
-            //MESSAGGIO DI CONFERMA PUBBLICAZIONE ANNUNCIO SU POSTMAN
+            // MESSAGGIO DI CONFERMA PUBBLICAZIONE ANNUNCIO SU POSTMAN
             return ResponseEntity.status(HttpStatus.CREATED).body("L'annuncio è stato pubblicato con successo.");
         } catch (BadRequestException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Si è verificato un errore durante la pubblicazione dell'annuncio.");
+        // l'ILLEGALARGUMENTEXCEPTION MOSTRA L'ERRORE IN CONSOLE SU POSTMAN, BAD REQUEST TRASFORMA L'ERRORE IN 400
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("L'utente autenticato non è un'azienda o un privato.");
         }
     }
 
-
     @GetMapping("/{idAnnuncio}")
-    public Annuncio getAnnuncioById(@PathVariable UUID id) {
-        return annuncioService.findById(id);
+    public ResponseEntity<Annuncio> getAnnuncioById(@PathVariable UUID id) {
+        Annuncio annuncio = annuncioService.findById(id);
+        if (annuncio != null) {
+            return ResponseEntity.ok(annuncio);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/titolo/{titoloAnnuncio}")
