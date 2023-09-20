@@ -42,6 +42,10 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/mieProposte").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/{id}").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/proposte/mieProposte").authenticated());
+		
+		///////////ENDPOINT PER LE RECENSIONI
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/recensioni/scriviRecensione/{idSviluppatore}").authenticated());
+		
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();

@@ -23,6 +23,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
+import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 
 @SuppressWarnings("serial")
 @Entity
@@ -37,6 +38,9 @@ public class Utente implements UserDetails {
 	
 	@OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Annuncio> annunci = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "recensore")
+    private List<Recensione> recensioniScritte;
 	
 	@Id
 	@GeneratedValue

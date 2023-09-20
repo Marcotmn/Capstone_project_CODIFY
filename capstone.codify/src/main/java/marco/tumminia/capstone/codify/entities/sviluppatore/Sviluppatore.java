@@ -1,10 +1,14 @@
 package marco.tumminia.capstone.codify.entities.sviluppatore;
 
+import java.util.List;
+
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 import marco.tumminia.capstone.codify.entities.utente.Ruolo;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 
@@ -15,6 +19,9 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Sviluppatore extends Utente {
+	
+    @OneToMany(mappedBy = "sviluppatore")
+    private List<Recensione> recensioniRicevute;
 	
 	private String nome;
 	private String cognome;
