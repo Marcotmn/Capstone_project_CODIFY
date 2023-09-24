@@ -22,9 +22,6 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @EqualsAndHashCode(callSuper = true)  
 
 public class Privato extends Utente {
-	
-	@OneToMany(mappedBy = "privato", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Annuncio> annunci = new ArrayList<>();
 
 	private String nome;
 	private String cognome;

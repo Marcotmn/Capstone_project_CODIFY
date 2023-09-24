@@ -55,8 +55,16 @@ public class AnnuncioService {
     public Annuncio save(Annuncio annuncio) {
         return annuncioRepository.save(annuncio);
     }
+    
+    public Annuncio completaAnnuncio(UUID idAnnuncio) {
+        Annuncio annuncio = annuncioRepository.findById(idAnnuncio)
+                .orElseThrow(() -> new NotFoundException("Annuncio non trovato"));
 
-    public Annuncio findById(UUID id) {
+        annuncio.setStatoAnnuncio(StatoAnnuncio.COMPLETATO);
+        return annuncioRepository.save(annuncio);
+    }
+
+    public Annuncio findAnnuncioById(UUID id) {
         Annuncio annuncio = annuncioRepository.findById(id).orElse(null);
         if (annuncio == null) {
             throw new NotFoundException("Annuncio non trovato");

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
+import marco.tumminia.capstone.codify.entities.utente.Utente;
 import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
@@ -95,4 +96,13 @@ public class PrivatoService {
         }
         privatoRepository.deleteById(id);
     } 
+    
+    public Privato findByCodiceFiscale(String codiceFiscale) {
+        Privato privato = privatoRepository.findByCodiceFiscale(codiceFiscale);
+                if (privato == null) {
+                	throw new NotFoundException("Utente privato con codice fiscale " + codiceFiscale + " non trovato");
+                }
+                
+                return privato;
+    }
 }

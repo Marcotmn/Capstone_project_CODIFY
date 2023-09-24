@@ -100,5 +100,14 @@ public class AziendaService {
         }
         aziendaRepository.deleteById(id);
     }
+    
+    public Azienda findByPartitaIva(String partitaIva) {
+        Azienda azienda = aziendaRepository.findByPartitaIva(partitaIva);
+        if (azienda == null) {
+            throw new NotFoundException("Azienda con partita IVA " + partitaIva + " non trovata");
+        }
+        return azienda;
+    }
+
 }
 

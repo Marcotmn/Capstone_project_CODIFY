@@ -53,7 +53,7 @@ public class PropostaSviluppatoreController {
         Sviluppatore sviluppatore = (Sviluppatore) currentUser;
 
         //METODO PER RECUPERARE L'ANNUNCIO TRAMITE L'ID
-        Annuncio annuncio = annuncioService.findById(annuncioId);
+        Annuncio annuncio = annuncioService.findAnnuncioById(annuncioId);
 
         if (annuncio == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

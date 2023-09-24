@@ -6,6 +6,8 @@ import java.util.UUID;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @Service
@@ -28,11 +30,13 @@ public class UtenteService {
 		return utenteRepository.findByEmail(email)
 				.orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato"));
 	}
+	
     //////////METODO CHE RICERCA TUTTI GLI UTENTI
     public List<Utente> getUsers() {
         return utenteRepository.findAll();
     }
-    //////////METODO CHE RICERCA L'UTENTE TRAMITE ID
+	
+    //////////METODO CHE RICERCA L'UTENTE TRAMITE Id
     public Utente findById(UUID id) {
         Optional<Utente> utente = utenteRepository.findById(id);
         if (utente.isPresent()) {
@@ -41,6 +45,7 @@ public class UtenteService {
             throw new RuntimeException("Utente non trovato con ID: " + id); 
         }
     }
+	
     //////////METODO CHE CERCA L'UTENTE TRAMITE ID E POI LO AGGIORNA
     public Utente findByIdAndUpdate(UUID id, NuovoUtentePayload body) {
         Optional<Utente> utenteOptional = utenteRepository.findById(id);
@@ -53,6 +58,7 @@ public class UtenteService {
             return null; 
         }
     }
+	
     //////////METODO CHE CERCA L'UTENTE TRAMITE ID E POI LO ELIMINA
     public void findByIdAndDelete(UUID id) {
         if (utenteRepository.existsById(id)) {
@@ -61,4 +67,11 @@ public class UtenteService {
             throw new RuntimeException("Utente non trovato con ID: " + id);  // Puoi gestire l'errore come preferisci
         }
     }
+    
+    public Utente findByEmailAndUsername(String email, String username) {
+        // Assumendo che tu abbia un metodo appropriato nel tuo repository
+        return utenteRepository.findByEmailAndUsername(email, username);
+    }
+  
 }
+

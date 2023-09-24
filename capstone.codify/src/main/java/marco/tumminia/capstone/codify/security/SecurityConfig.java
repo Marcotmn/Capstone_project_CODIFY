@@ -46,8 +46,15 @@ public class SecurityConfig {
 		///////////ENDPOINT PER LE RECENSIONI
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/recensioni/scriviRecensione/{idSviluppatore}").authenticated());
 		
+		///////////ENDPOINT PER IL PAGAMENTO
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/pagamenti/{idAnnuncio}/effettuaPagamento").authenticated());
+
+		
+		////////////ENDPOINT FATTURE
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fatture/creaFattura").authenticated());
+
+		
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fattura/**").authenticated());
 		return http.build();
 	}
 

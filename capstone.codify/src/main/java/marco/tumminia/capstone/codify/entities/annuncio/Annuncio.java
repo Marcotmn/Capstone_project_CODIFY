@@ -1,9 +1,11 @@
 package marco.tumminia.capstone.codify.entities.annuncio;
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,11 +13,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import marco.tumminia.capstone.codify.entities.azienda.Azienda;
 import marco.tumminia.capstone.codify.entities.privato.Privato;
+import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 @Entity
@@ -28,14 +32,9 @@ public class Annuncio {
 	@ManyToOne
     @JoinColumn(name = "utente_id") // Utente comune per azienda e privato
     private Utente utente;
-
-    @ManyToOne
-    @JoinColumn(name = "azienda_id") // Nome corretto della colonna
-    private Azienda azienda;
     
-    @ManyToOne
-    @JoinColumn(name = "privato_id") // Nome corretto della colonna
-    private Privato privato;
+    @OneToMany(mappedBy = "annuncio", cascade = CascadeType.ALL)
+    private List<PropostaSviluppatore> propostePerAnnuncio = new ArrayList<>();
     
     
 	@Id
@@ -63,6 +62,10 @@ public class Annuncio {
 		this.dataPubblicazione = dataPubblicazione;
 		this.dataChiusura = dataChiusura;
 	}
+	
+	public UUID getUtenteId() {
+        return utente.getId(); 
+    }
 	
 	@Override
 	public String toString() {

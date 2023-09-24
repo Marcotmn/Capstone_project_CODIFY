@@ -33,10 +33,16 @@ public class AnnuncioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("L'utente autenticato non è un'azienda o un privato.");
         }
     }
+    
+    @PostMapping("/{idAnnuncio}/completa")
+    public ResponseEntity<Annuncio> completaAnnuncio(@PathVariable UUID idAnnuncio) {
+        Annuncio annuncio = annuncioService.completaAnnuncio(idAnnuncio);
+        return ResponseEntity.ok(annuncio);
+    }
 
     @GetMapping("/{idAnnuncio}")
     public ResponseEntity<Annuncio> getAnnuncioById(@PathVariable UUID id) {
-        Annuncio annuncio = annuncioService.findById(id);
+        Annuncio annuncio = annuncioService.findAnnuncioById(id);
         if (annuncio != null) {
             return ResponseEntity.ok(annuncio);
         } else {

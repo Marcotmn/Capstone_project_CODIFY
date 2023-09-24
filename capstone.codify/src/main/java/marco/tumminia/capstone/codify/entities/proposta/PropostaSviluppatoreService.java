@@ -116,4 +116,6 @@ public class PropostaSviluppatoreService {
     public PropostaSviluppatore saveProposta(PropostaSviluppatore proposta) {
         return propostaRepository.save(proposta);
     }
+
+
 }

@@ -22,9 +22,6 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @EqualsAndHashCode(callSuper = true)  
 
 public class Azienda extends Utente {
-	
-	@OneToMany(mappedBy = "azienda", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Annuncio> annunci = new ArrayList<>();
 
 	private String nomeAzienda;
 	private String tipoAzienda;

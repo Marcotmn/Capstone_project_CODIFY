@@ -16,6 +16,6 @@ public interface PropostaSviluppatoreRepository extends JpaRepository<PropostaSv
     List<PropostaSviluppatore> findBySviluppatore(Sviluppatore sviluppatore);
     Optional<PropostaSviluppatore> findByAnnuncioAndSviluppatore(Annuncio annuncio, Sviluppatore sviluppatore);
     List<PropostaSviluppatore> findByUtenteAndStatoProposta(Utente utente, StatoProposta statoProposta);
-
+    Optional<PropostaSviluppatore> findById(UUID idProposta);
 }
 

@@ -1,13 +1,18 @@
 package marco.tumminia.capstone.codify.entities.sviluppatore;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import marco.tumminia.capstone.codify.entities.fattura.Fattura;
+import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
 import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 import marco.tumminia.capstone.codify.entities.utente.Ruolo;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
@@ -20,8 +25,12 @@ import marco.tumminia.capstone.codify.entities.utente.Utente;
 @EqualsAndHashCode(callSuper = true)
 public class Sviluppatore extends Utente {
 	
-    @OneToMany(mappedBy = "sviluppatore")
+    @OneToMany(mappedBy = "sviluppatore", fetch = FetchType.EAGER)
     private List<Recensione> recensioniRicevute;
+  
+    @OneToMany(mappedBy = "sviluppatore", cascade = CascadeType.ALL)
+    private List<PropostaSviluppatore> proposteEmesse = new ArrayList<>();
+
 	
 	private String nome;
 	private String cognome;
@@ -61,6 +70,8 @@ public class Sviluppatore extends Utente {
                 ", partitaIva='" + partitaIva + '\'' +
                 "} " + super.toString();
     }
+    
+    
 
 
 }
