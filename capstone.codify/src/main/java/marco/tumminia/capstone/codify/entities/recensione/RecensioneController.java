@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import marco.tumminia.capstone.codify.entities.azienda.Azienda;
 import marco.tumminia.capstone.codify.entities.privato.Privato;
 import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
@@ -58,7 +57,8 @@ public class RecensioneController {
         Recensione recensioneSalvata = recensioneService.saveRecensione(nuovaRecensione);
 
         // Ottieni l'username dello sviluppatore recensito
-        String usernameSviluppatoreRecensito = sviluppatore.getUsername();
+        @SuppressWarnings("unused")
+		String usernameSviluppatoreRecensito = sviluppatore.getUsername();
 
         // Crea una risposta
         NuovaRecensioneResponsePayload responsePayload = new NuovaRecensioneResponsePayload();
@@ -67,7 +67,6 @@ public class RecensioneController {
 
         return ResponseEntity.ok(responsePayload);
     }
-
 
     @GetMapping("/{id}")
     public Recensione getRecensioneById(@PathVariable UUID id) {

@@ -48,11 +48,9 @@ public class SecurityConfig {
 		
 		///////////ENDPOINT PER IL PAGAMENTO
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/pagamenti/{idAnnuncio}/effettuaPagamento").authenticated());
-
 		
 		////////////ENDPOINT FATTURE
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/fatture/creaFattura").authenticated());
-
 		
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		return http.build();

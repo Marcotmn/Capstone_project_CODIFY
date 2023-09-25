@@ -1,7 +1,5 @@
 package marco.tumminia.capstone.codify.pagamento;
 
-import java.util.UUID;
-
 import lombok.Data;
 
 

@@ -9,8 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import marco.tumminia.capstone.codify.entities.fattura.Fattura;
-import marco.tumminia.capstone.codify.entities.utente.Utente;
 
 @Entity
 @Data
@@ -28,15 +26,16 @@ public class Pagamento {
     private LocalDate dataPagamento;
     private String emailSviluppatore;
     private String partitaIvaSviluppatore;
+    private String emailUtentePagante;
 
 
-    public Pagamento(UUID idAnnuncio, String nomeAnnuncio, double importo, LocalDate dataPagamento, String emailSviluppatore, String partitaIvaSviluppatore) {
+    public Pagamento(UUID idAnnuncio, String nomeAnnuncio, double importo, LocalDate dataPagamento, String emailSviluppatore, String partitaIvaSviluppatore, String emailUtentePagante) {
         this.idAnnuncio = idAnnuncio;
         this.nomeAnnuncio = nomeAnnuncio;
         this.importo = importo;
         this.dataPagamento = dataPagamento;
         this.emailSviluppatore = emailSviluppatore;
         this.partitaIvaSviluppatore = partitaIvaSviluppatore;
-
-    }
+        this.emailUtentePagante = emailUtentePagante;
+    } 
 }

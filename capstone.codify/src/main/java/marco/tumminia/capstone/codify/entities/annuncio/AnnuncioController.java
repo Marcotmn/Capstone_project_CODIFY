@@ -23,7 +23,8 @@ public class AnnuncioController {
     @PostMapping("/nuovoAnnuncio")
     public ResponseEntity<?> createAnnuncio(@RequestBody AnnuncioPayload payload) {
         try {
-            Annuncio createdAnnuncio = annuncioService.createAnnuncio(payload);
+            @SuppressWarnings("unused")
+			Annuncio createdAnnuncio = annuncioService.createAnnuncio(payload);
             // MESSAGGIO DI CONFERMA PUBBLICAZIONE ANNUNCIO SU POSTMAN
             return ResponseEntity.status(HttpStatus.CREATED).body("L'annuncio è stato pubblicato con successo.");
         } catch (BadRequestException e) {

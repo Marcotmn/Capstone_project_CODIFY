@@ -1,16 +1,10 @@
 package marco.tumminia.capstone.codify.entities.azienda;
 
-import java.util.ArrayList;
-import java.util.List;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
 import marco.tumminia.capstone.codify.entities.utente.Ruolo;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 

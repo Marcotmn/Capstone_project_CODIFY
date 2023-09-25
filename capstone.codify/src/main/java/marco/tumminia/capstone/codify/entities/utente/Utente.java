@@ -14,7 +14,6 @@ import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -23,7 +22,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
-import marco.tumminia.capstone.codify.entities.fattura.Fattura;
 import marco.tumminia.capstone.codify.entities.proposta.PropostaSviluppatore;
 import marco.tumminia.capstone.codify.entities.recensione.Recensione;
 
@@ -46,8 +44,6 @@ public class Utente implements UserDetails {
 	
 	@OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
     private List<PropostaSviluppatore> proposteRicevute = new ArrayList<>();
-
-
 	
 	@Id
 	@GeneratedValue

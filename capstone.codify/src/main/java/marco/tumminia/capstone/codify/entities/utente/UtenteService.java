@@ -6,8 +6,6 @@ import java.util.UUID;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import jakarta.transaction.Transactional;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 
 @Service
@@ -69,9 +67,9 @@ public class UtenteService {
     }
     
     public Utente findByEmailAndUsername(String email, String username) {
-        // Assumendo che tu abbia un metodo appropriato nel tuo repository
         return utenteRepository.findByEmailAndUsername(email, username);
     }
+   
   
 }
 

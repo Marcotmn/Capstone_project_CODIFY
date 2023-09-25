@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import marco.tumminia.capstone.codify.entities.utente.RegistrationSuccessResponse;
-import marco.tumminia.capstone.codify.entities.utente.Utente;
 import marco.tumminia.capstone.codify.exceptions.EmailAlreadyExistsException;
 import marco.tumminia.capstone.codify.exceptions.NotFoundException;
 

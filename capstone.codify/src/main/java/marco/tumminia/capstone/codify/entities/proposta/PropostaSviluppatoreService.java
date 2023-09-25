@@ -5,17 +5,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import marco.tumminia.capstone.codify.entities.annuncio.Annuncio;
-
-import marco.tumminia.capstone.codify.entities.annuncio.AnnuncioRepository;
 import marco.tumminia.capstone.codify.entities.azienda.Azienda;
 import marco.tumminia.capstone.codify.entities.privato.Privato;
 import marco.tumminia.capstone.codify.entities.sviluppatore.Sviluppatore;
-import marco.tumminia.capstone.codify.entities.sviluppatore.SviluppatoreRepository;
 import marco.tumminia.capstone.codify.entities.utente.Utente;
 import marco.tumminia.capstone.codify.exceptions.BadRequestException;
 import marco.tumminia.capstone.codify.exceptions.UnauthorizedException;
